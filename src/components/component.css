@@ -1,0 +1,347 @@
+.logo{
+    /* font-family: 'Exo 2', sans-serif; */
+    /* color: teal !important; */
+    /* color: transparent !important; */
+    /* text-shadow: 0px 0px 1px rgba(255, 255, 255, 0); */
+    /* font-size: 18px !important; */
+    /* text-align: center !important; */
+    /* pasdding-left: 535px; */
+    color: rgb(69, 69, 69);
+}
+
+
+.logo a{
+    font-family: 'Exo 2', sans-serif;
+    color: transparent !important;
+    text-shadow: 0px 0px 0px rgba(255, 255, 255, 0);
+    font-size: 0 !important;
+    text-align: right;
+    transition: .5s;
+    background-image: url('../img/icon.png') ;
+    background-size: 65px;
+    background-repeat: no-repeat;
+    background-position: left;
+    padding: 15px 0px 65px 70px;
+    position: absolute !important;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+
+
+p{
+    font-weight: 500 !important;
+}
+
+h4{
+    font-weight: 500 !important;
+}
+
+nav{
+    transition: .5s;
+}
+
+nav ul li a{
+    color: black !important;    
+    text-shadow: 0px 0px 1px rgba(0, 0, 0, 0.3);
+    font-size: 0 !important;
+    color: transparent !important;
+}
+
+/* -------------------------turun------------------------------ */
+nav.turun{
+    background-color: rgba(0, 128, 128, 0.4) !important;
+    height: 55px !important;
+    transition: .5s;
+}
+nav.turun .logo a{
+    
+    font-family: 'Exo 2', sans-serif;
+    color: white !important;
+    text-shadow: 0px 0px 0px rgba(255, 255, 255, 0);
+    font-size: 14pt !important;
+    text-align: end;
+    /* transition: .1s; */
+    background-image: url('../img/icon.png') ;
+    background-size: 45px;
+    background-repeat: no-repeat;
+    background-position: left;
+    padding: 10px 0px 12px 50px;
+    position: absolute !important;
+    top: 50%;
+    left: 20%;
+    transform: translate(-50%, -50%);
+}
+
+
+nav.turun ul li a{
+    color: white !important;
+    /* height: 100px !important; */
+    text-shadow: 1px 2px 3px rgb(0, 0, 0, .7);
+    font-weight: 400 !important;
+    font-size: 16px !important;
+}
+nav.turun .kotaklogin{
+    border: 1px solid rgb(255, 255, 255);
+    padding: 10px 10px 2px 10px;
+    border-radius: 8px;
+    margin-left: 10px;
+}
+nav.turun .kotaklogin .L{
+    color: rgba(255, 255, 255, 0.772) !important;
+    font-size: 14px;    
+    padding: 1px 0 5px 0 AUTO !important;
+    /* text-shadow: 1px 2px 3px rgba(0, 0, 0, 0.5) !important; */
+}
+
+.navbarsaya{
+    background-color: transparent !important;
+    -webkit-box-shadow: none !important;
+    -moz-box-shadow: none !important;
+    -o-box-shadow: none !important;
+    box-shadow: none !important;
+    height: 100px !important;
+    text-shadow: 1px 2px 3px rgba(0, 0, 0, 1);
+}
+
+.loginForm{
+    border: 1px solid black;
+    background-color: rgba(255, 255, 255, .5);
+    top: 0;
+    /* right: 0; */
+    position: absolute;
+    border-radius: 10px;
+    padding: 5px 40px 20px 40px;
+    /* margin-top: -1000px; */
+    margin: 80px 0px 0 235px ;
+}
+
+
+
+.tebal{
+    font-weight: 400 !important;
+    padding: 0 10px 0 10px !important;
+}
+
+.tebal:hover{
+    font-weight: 700 !important;
+}
+
+.kotaklogin{
+    border: 1px solid black;
+    padding: 10px 10px 2px 10px;
+    border-radius: 8px;
+    margin-left: 10px;
+    transition: .5s;
+}
+
+.kotaklogin .L{
+    padding: 2px 0 10px 0;
+    color: rgb(115, 150, 134) !important;
+    font-size: 14px;    
+    text-shadow: 1px 2px 3px rgba(0, 0, 0, 0.1) !important;
+    transition: .5s;
+}
+
+.popover-border{
+    background-image: linear-gradient(to right, #d9afd9 0%, #97d9e1 100%) !important;
+    /* background-color: rgba(255, 255, 255, 0.3) !important;
+    border-radius: 15px !important; */
+    transition: .5s;
+}
+.transparan{
+    background: rgba(0, 0, 0, 0.4) !important;
+}
+.tombol-login-siswa{
+    /* background-image: linear-gradient(to top, #00000098 0%, #ffffff00 100%) !important; */
+    background-image: linear-gradient(to top, #005167 0%, #00c9ff 100%) !important;
+    color: white !important;
+    font-weight: 300 !important;
+    font-size: 12px !important;
+    border-radius: 5px !important;
+    margin-left: 5px !important;
+    padding: 3px 1px 3px 1px !important;
+}
+
+.tombol-login-ortu{
+    background-image: linear-gradient(to top, #005723 0%, #10E02B 100%) !important;
+    color: white !important;
+    font-weight: 300 !important;
+    font-size: 12px !important;
+    border-radius: 5px !important;
+    margin-left: 10px !important;
+    padding: 3px 10px 3px 10px !important;
+}
+
+.tombol-start{
+    background-image: linear-gradient(to bottom, #3065d0 0%, #1d009f 100%) !important;
+    color: white !important;
+    font-weight: 300 !important;
+    font-size: 16px !important;
+    border-radius: 5px !important;
+    margin-left: 10px !important;
+    padding: 3px 10px 3px 10px !important;
+}
+
+.jumbotron{
+    background-image: url('../img/jumb-img.jpg');
+    background-size: cover;
+    height: 700px;
+    /* top:0; */
+    margin-top: -100px;
+    text-align: center;
+    color: white;
+    text-shadow: 1px 1px 4px rgba(0, 0, 0, 0.7);
+    position: relative; 
+    /* background-attachment: fixed; */
+    
+}
+
+.jumbotron p{
+    z-index: 1;
+    position: relative; 
+    color: white;
+}
+
+.jumbotron Button{
+    z-index: 1;
+    position: relative;
+}
+
+.jumbotron::after{
+    /* content: '' !important;
+    display: block !important;
+    width: 100% !important;
+    height: 70% !important;
+    position: absolute !important;
+    background-image: linear-gradient(to top, rgba(0, 0, 0, 1), rgba(0, 0, 0, 0)) !important;
+    bottom: 0; */
+}
+
+.jumbotron .display-6{
+    font-size: 20px;
+    text-align: center;
+    margin-top: 180px;
+}
+
+
+.jumbotron .lead span{
+    font-weight: 500;
+    font-size: 24px;
+}
+.jumbotron .display-6 span{
+    font-weight: 500;
+    font-size: 24px;
+}
+
+.top-feature{
+    background-image: linear-gradient(to top, #dfe9f3 0%, white 100%);
+    box-shadow: 0 3px 20px rgba(0, 0, 0, 0.5);
+    border-radius: 10px;
+    margin-top: -125px;
+    padding: 20px 50px 5px 50px;    
+}
+
+.top-feature img{
+    margin: 20px;
+    padding: 5px;
+}
+
+.top-feature h5{
+    font-weight: 500;
+}
+
+.sec1{
+    /* background-size: 100% !important; */
+    margin-right: 100px !important;
+    margin-top: -100px;
+    padding-top: 170px;
+    padding-bottom: 100px;
+}
+
+.sec2{
+    background-image: url('../img/student-2.jpg');
+    background-size: 100%;
+    background-attachment: fixed;
+    padding-top: 80px;
+    padding-bottom: 70px;
+    position: relative;
+}
+.sec2::after{
+    content: '' !important;
+    display: block !important;
+    width: 100% !important;
+    height: 100% !important;
+    position: absolute !important;
+    background-color: rgba(255, 255, 255, 0) !important;
+    bottom: 0;
+}
+
+.sec2 .card-menu{
+    z-index: 1;
+}
+
+.card-menu{
+    background-color: rgba(255, 255, 255, 0.5);
+    border: 1px solid black;
+    border-radius: 10px;
+}
+
+.card-menu img{
+    border-radius: 10px 10px 0 0;
+    margin: 15px auto;
+}
+
+.card-menu h5{
+    font-weight: 500 !important;
+    /* text-align: center; */
+}
+
+.sec3{
+    /* background-image: linear-gradient(180deg, #f5f7fa 0%, #c3cfe2 100%); */
+    /* margin-top: 70px; */
+    margin-right: 100px !important;
+    padding-top: 100px;
+    padding-bottom: 100px;
+}
+.sec3 h4{
+    text-align: right;
+}
+.sec3-content {
+    text-align: right;
+    margin: 10px auto;
+}
+
+.sec3-content p{
+    font-size: 18px !important;
+}
+
+.sec3-content img{
+    width: 50px;
+}
+.sec3-content .col-11{
+    text-align: right;
+}
+
+/* gambar login ortu & murid */
+.gambarlogin{
+    height:  250px;
+}
+/* animasinya */
+main > div {
+    /* cursor: pointer; */
+    /* position: absolute; */
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: white;
+    will-change: transform, opacity;
+  }
+
+.bg {
+    background-image: url('../img/bgloginpage.png');
+    background-size: 100%;
+}

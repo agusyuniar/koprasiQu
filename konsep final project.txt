@@ -1,0 +1,49 @@
+landing page.
+navbar dgn akses ke home(landingpage), marketplace koperasi, login ortu/siswa.
+jumbotron ada akses ke halaman belanja dan tutorial singkat (hal 1)
+info dan keuntungan dari fitur utama koperasiQu,
+akses ke fitur utama.
+
+fungsi button.
+logo -> home
+beranda -> home
+tentang -> profil singkat web
+belanja -> buka halaman e-commerce koperasi, bisa add cart, bayar kl sdh login
+login =>
+  	1. orangtua => 	masuk ke profil singkat. 
+			tampilkan akses utama untuk ortu
+			a. foto profil
+			   klik utk lihat halaman profil lengkap sekaligus edit profil
+			b. info singkat pengeluaran siswa/anak.
+			   > lihat detail pengeluaran anak
+				- info pembelian : toko apa saja, brp banyak, total dalam beberapa periode (harian, mingguan, bulanan)
+				- tambah saldo : top-up saldo untuk anak
+			   > lihat kebutuhan pokok utk KBM yg belum terpenuhi
+				- menu ke e-commerce koperasi(beli kebutuhan siswa)
+			c. info pembayaran sekolah anak
+			   > cek pembayaran SPP, ekskul, dll
+				- bayar secara online
+				- lihat report SPP dari awal masuk
+			d. laporan keuangan
+			   > cek laporan yg dapat di cetak secara keseluruhan dengan detailnya.
+			   > cek laporan SPP, Uang masuk, dll yg dapat di cetak dan disimpan filenya.
+			e. cart, histori belanja
+			   > cart.
+			  	periksa isi cart setelah belanja di koperasi & hasil belanja anak.
+				-> check out
+				   konfirmasi cart dan lanjut ke pembayaran. Setelah berhasil masuk ke histori belanja.
+				-> histori
+				   melihat histori belanja yang sudah berhasil.
+
+	2. siswa/anak=> masuk ke profil singkat.
+			a. foto profil
+			   klik utk lihat halaman profil lengkap sekaligus edit profil (edit nama dsb, ganti pass, set PIN untuk belanja)
+			b. info singkat pengeluaran siswa/anak.
+			   > lihat detail pengeluaran anak
+				- info pembelian : toko apa saja, brp banyak, total dalam beberapa periode (harian, mingguan, bulanan)
+				- info kantin yg tersedia
+			   
+			c. menu ke e-commerce koperasi(beli kebutuhan siswa)
+			   > masuk ke e-commerce koperasi dan bisa pilih barang (add cart + checkout).
+			     seluruh pembayaran di alihkan ke ortu berupa cart (msh bisa di hapus ato lgsg checkout)
+			
