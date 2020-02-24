@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
+import { connect } from "react-redux";
 import './component.css';
 import {
     Navbar,
@@ -25,7 +26,7 @@ class Navbartop extends Component {
 
                     <Link to="/">
                         <NavbarBrand className='logo'>
-                            &nbsp;<a style={{position:"relative"}} >koperasiQu</a>
+                            <a style={{position:"relative"}} >koperasiQu</a>
                         </NavbarBrand>
                     </Link>
 
@@ -57,5 +58,7 @@ class Navbartop extends Component {
         );
     }
 }
+
+
 
 export default Navbartop;

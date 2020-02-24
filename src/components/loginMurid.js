@@ -42,7 +42,6 @@ class LoginOrtu extends Component {
                 >
                     <h3><strong>Login sebagai Murid</strong></h3>
                     <div className='row container pt-5'>
-
                         <div className='col-6 container table float-right m-auto'>
                             <div className="input-group mb-3 container">
                                 <div className="input-group-prepend">

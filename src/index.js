@@ -8,14 +8,19 @@ import 'bootstrap-css-only/css/bootstrap.min.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'mdbreact/dist/css/mdb.css';
 import 'bootstrap-css-only/css/bootstrap.min.css';
+import { createStore, applyMiddleware } from 'redux';
+import { Provider } from 'react-redux';
+import reduxThunk from 'redux-thunk'
+import reducers from './redux/reducer';
 
+const stores = createStore(reducers, {}, applyMiddleware(reduxThunk))
 
 ReactDOM.render(
-    // <Provider store={storeReducer}>
+    <Provider store ={stores}>
         <BrowserRouter>
             <App />
         </BrowserRouter>
-    // </Provider>
+    </Provider>
 , document.getElementById('root'));
 
 // If you want your app to work offline and load faster, you can change
