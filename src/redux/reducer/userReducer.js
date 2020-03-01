@@ -8,7 +8,7 @@ const INITIAL_STATE = {
     email: '',
     status: '',
     token: '',
-    authchecked: false
+    authchecked: false //autentikasi sdh login/blm saat masuk
 }
 
 export default (state=INITIAL_STATE, action) => {

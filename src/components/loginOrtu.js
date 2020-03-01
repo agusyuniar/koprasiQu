@@ -1,40 +1,53 @@
 import React, { Component } from 'react';
 import { Link, Redirect } from 'react-router-dom';
 import { connect } from "react-redux";
-import Button from '@material-ui/core/Button';
+// import { Input, Button } from '@fluentui/react';
+
+import { InputGroup, InputGroupAddon, InputGroupText, Input } from 'reactstrap';
+import {Button} from '@material-ui/core';
 import ButtonGroup from '@material-ui/core/ButtonGroup';
-import VpnKeyIcon from '@material-ui/icons/VpnKey';
-import PermIdentityIcon from '@material-ui/icons/PermIdentity';
+import {FormControl, InputLabel, OutlinedInput, InputAdornment, IconButton, Grid, TextField} from '@material-ui/core';
+import VisibilityIcon from '@material-ui/icons/Visibility';
+import VisibilityOffIcon from '@material-ui/icons/VisibilityOff';
+import AccountCircle from '@material-ui/icons/AccountCircle';
+import VpnKeyRoundedIcon from '@material-ui/icons/VpnKeyRounded';
+import PersonRoundedIcon from '@material-ui/icons/PersonRounded';
 import './component.css';
-import { Transition, animated } from 'react-spring/renderprops'
-import { inputLoginUsername, inputLoginPassword } from "../redux/action";
+import { Transition, animated } from 'react-spring/renderprops';
+import { inputUsername, inputPassword, loginUserParent, hideUnhide } from "../redux/action";
+
 
 class LoginOrtu extends Component {
     state = {
-        // username: '',
-        // password: '',
         redirect: false,
         index: 0
     }
 
     onBtnLogin = () => {
-        // console.log(this.state);
-        // let { username, password } = this.state
-        var username = this.refs.username.value
-        var password = this.refs.password.value
+        // var username = this.refs.username.value
+        // var password = this.refs.password.value
         
-        if (username!=''&& password!='') {
-            this.props.login(username, password)
-            console.log(username,password);
-            console.log(this.props.login);
-        }
-        else {
-            alert('harap diisi semua')
-        }
+        // if (username!=''&& password!='') {
+        //     this.props.login(username, password)
+        //     console.log(username,password);
+        //     console.log(this.props.login);
+        // }
+        // else { alert('harap diisi semua')}
+
+        // this.props.loginUser(this.props.loginForm)
+        // console.log(this.props.loginForm.username);
+        // console.log(this.props.loginForm.password);
+        console.log(this.props.loginForm);
+        this.props.loginUserParent(this.props.loginForm)
     }
 
 
     render() {
+        const { 
+            username,
+            password
+        } = this.props.loginForm;
+
         const pages = [
             style => (
                 <animated.div style={{ ...style }}>
@@ -73,36 +86,52 @@ class LoginOrtu extends Component {
                         </div>
 
                         <div className='col-6 container table float-left m-auto'>
-                            <div className="input-group mb-3 container">
-                                <div className="input-group-prepend">
-                                    <span className="input-group-text" id="basic-addon1"><PermIdentityIcon /></span>
-                                </div>
+                        <div className='float-left'>
+                                <h6><strong><PersonRoundedIcon /> Username</strong></h6>
+                            </div>
+                            <div className="input-group  mb-3">
                                 <input 
                                     type="text" 
                                     size='small' 
                                     className="form-control" 
                                     placeholder="Username"
-                                    onChange={(e) => this.props.inputLoginUsername(e.target.value)}
+                                    value = {this.props.loginForm.username}
+                                    onChange={(e) => this.props.inputUsername(e.target.value)}
                                 />
                             </div>
-                            <div className="input-group mb-3 container">
-                                <div className="input-group-prepend">
-                                    <span className="input-group-text" id="basic-addon1" ><VpnKeyIcon /></span>
-                                </div>
+                            
+                            <div className='float-left'>
+                                <h6><VpnKeyRoundedIcon /><strong> Password</strong></h6>
+                            </div>
+                            <div className="input-group mb-3 ">
                                 <input 
-                                    type="password" 
+                                    type={this.props.loginForm.hidePassword 
+                                        ? 'password' /*kondisi true*/ 
+                                        : 'text' /*kondisi false*/
+                                    }
                                     className="form-control" 
                                     placeholder="Password" 
-                                    onChange={(e) => this.props.inputLoginEmail(e.target.value)}
+                                    value = {this.props.loginForm.password}
+                                    onChange={(e) => this.props.inputPassword(e.target.value)}
                                 />
-                            </div>
+                                <div className="input-group-append">
+                                    <span className="input-group-text" id="basic-addon1" >
+                                        {/* <VisibilityIcon  /> */}
+                                        {this.props.loginForm.hidePassword 
+                                            ? <VisibilityOffIcon  onClick={this.props.hideUnhide}/> /*kondisi true*/ 
+                                            : <VisibilityIcon  onClick={this.props.hideUnhide}/>/*kondisi false*/
+                                        }
+                                        </span>
+                                </div>
+                            </div> 
+                            <p>{this.props.loginForm.error}</p>
 
                             <Button
                                 variant="outlined"
                                 size='small'
                                 color="primary"
                                 className='shadow pr-5 pl-5'
-                                onClick={()=>this.onBtnLogin()}
+                                onClick={this.onBtnLogin}
                             >
                                 Login
                             </Button>
@@ -148,8 +177,8 @@ class LoginOrtu extends Component {
     }
 }
 
-const mapStatetoProps = ({user}) => {
-    return {user}
+const mapStatetoProps = ({user,loginForm}) => {
+    return { user,loginForm }
 }
 
-export default connect (mapStatetoProps, {inputLoginUsername, inputLoginPassword}) (LoginOrtu);
+export default connect (mapStatetoProps/*ambil global state*/, {inputUsername, inputPassword, loginUserParent, hideUnhide}/*isi global state (action creator)*/) (LoginOrtu);
