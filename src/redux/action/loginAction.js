@@ -1,5 +1,5 @@
 import axios from 'axios';
-
+import { API_URL_1 } from '../../helpers/apiurl'
 import {
     LOGIN_NIM_CHANGED,
     LOGIN_USERNAME_CHANGED,
@@ -7,10 +7,9 @@ import {
     HIDE_UNHIDE,
     ON_USER_LOGIN,
     LOGIN_FAILED,
-    LOGIN_SUCCESS,
+    LOGIN_SUCCESS
 } from './types';
 
-import { API_URL_1 } from '../../helpers/apiurl'
 
 export const inputUsername = (username) => {  //terima perubahan dari input user
     return {
@@ -42,16 +41,18 @@ export const loginUserParent = (user) => {
                 username: user.username,
                 password: user.password
             }).then(res => {
-                localStorage.setItem('parenttoken', res.data.token)
+                console.log(res.data);
+                localStorage.setItem('ptoken', res.data.token)
                 dispatch({
                     type: LOGIN_SUCCESS,
                     payload: res.data
+                    
                 })
             }).catch(err => {
                 console.log(err.response)
                 dispatch({
                     type: LOGIN_FAILED,
-                    payload: err.response.data.message
+                    payload: err.response
                 })
             })
         } else {

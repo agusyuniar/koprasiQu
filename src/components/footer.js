@@ -12,7 +12,7 @@ class Footer extends Component {
                         
                             <h2 className='teal-text'>
                             <img src={require('../img/icon.png')} height='50' alt='logo'/>
-                                KoperasiQu
+                                KoprasiQu
                                 </h2>
                             {/* <p className="pr-5 text-white-50 ">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam ac ante mollis quam tristique convallis </p> */}
                             <p><a href="#"><i className="fa fa-facebook-square mr-1"></i></a><a href="#"><i className="fa fa-linkedin-square"></i></a></p>

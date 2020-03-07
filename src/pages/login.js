@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { Link, Redirect } from 'react-router-dom';
+import { connect } from "react-redux";
 import Button from '@material-ui/core/Button';
 import ButtonGroup from '@material-ui/core/ButtonGroup';
 // import Ortu from '../components/loginOrtu'
@@ -16,11 +17,17 @@ class LoginPage extends Component {
     }
 
     render() {
+        
+        
+        if(this.props.user.id){
+            return <Redirect to="/profile" />
+        }
         if (this.state.parent) {
             return <Redirect push to="/parent" />;
         } else if (this.state.student) {
             return <Redirect push to="/student" />;
         }
+        
         return (
             <div className=' m-auto text-center p-5' style={{ backgroundImage: 'linear-gradient(to top, #dfe9f3 0%, white 100%)' }}>
                 <div className='bg'>
@@ -63,4 +70,7 @@ class LoginPage extends Component {
     }
 }
 
-export default LoginPage;
+const sambungin = ({user})=> {
+    return {user}
+}
+export default connect (sambungin) (LoginPage);

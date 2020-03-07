@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { Route, Switch } from 'react-router-dom';
+import { connect } from 'react-redux';
 import './App.css';
 import Axios from 'axios';
 /*________________page_comp________________*/
@@ -12,6 +13,9 @@ import Footer from './components/footer'
 import Ortu from './components/loginOrtu'
 import Murid from './components/loginMurid'
 import Cobacoba from './components/tes'
+
+import { KeepLogin } from "./redux/action";
+
 
 class App extends Component {
   // componentDidMount(){    
@@ -30,6 +34,12 @@ class App extends Component {
 
   //   // this.props.keepLogin()
   // }
+
+  componentDidMount() {
+    var token = localStorage.getItem('ptoken')
+    console.log(token)
+    this.props.KeepLogin(token)    
+  }
 
   render(){
     return(
@@ -62,4 +72,4 @@ class App extends Component {
   }
 }
 
-export default App;
+export default connect (null, {KeepLogin}) (App);

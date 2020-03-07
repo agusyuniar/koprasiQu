@@ -14,7 +14,7 @@ import VpnKeyRoundedIcon from '@material-ui/icons/VpnKeyRounded';
 import PersonRoundedIcon from '@material-ui/icons/PersonRounded';
 import './component.css';
 import { Transition, animated } from 'react-spring/renderprops';
-import { inputUsername, inputPassword, loginUserParent, hideUnhide } from "../redux/action";
+import { inputUsername, inputPassword, loginUserParent, hideUnhide, KeepLogin } from "../redux/action";
 
 
 class LoginOrtu extends Component {
@@ -22,6 +22,7 @@ class LoginOrtu extends Component {
         redirect: false,
         index: 0
     }
+
 
     onBtnLogin = () => {
         // var username = this.refs.username.value
@@ -39,14 +40,22 @@ class LoginOrtu extends Component {
         // console.log(this.props.loginForm.password);
         console.log(this.props.loginForm);
         this.props.loginUserParent(this.props.loginForm)
+        
+        
+        
     }
 
+    
 
     render() {
-        const { 
-            username,
-            password
-        } = this.props.loginForm;
+        
+        console.log(this.props.user);
+        console.log(this.props.loginForm);
+        
+        if(this.props.user.id){
+            this.state.redirect=true
+            return <Redirect to="/profile" />
+        }
 
         const pages = [
             style => (
@@ -58,6 +67,7 @@ class LoginOrtu extends Component {
         if (this.state.redirect) {
             return <Redirect push to="/student" />;
         }
+
         return (
             <div className='text-center container'>
                 <div
@@ -181,4 +191,4 @@ const mapStatetoProps = ({user,loginForm}) => {
     return { user,loginForm }
 }
 
-export default connect (mapStatetoProps/*ambil global state*/, {inputUsername, inputPassword, loginUserParent, hideUnhide}/*isi global state (action creator)*/) (LoginOrtu);
+export default connect (mapStatetoProps/*ambil global state*/, {inputUsername, inputPassword, loginUserParent, hideUnhide, KeepLogin}/*isi global state (action creator)*/) (LoginOrtu);
