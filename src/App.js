@@ -8,6 +8,7 @@ import Homepage from './pages/home';
 import Profile from "./pages/profile";
 
 import Loginpage from './pages/login'
+import Register from './pages/register';
 import Navbar from './components/navbar'
 import Footer from './components/footer'
 import Ortu from './components/loginOrtu'
@@ -38,7 +39,7 @@ class App extends Component {
   componentDidMount() {
     var token = localStorage.getItem('ptoken')
     console.log(token)
-    this.props.KeepLogin(token)    
+    this.props.KeepLogin(token)   
   }
 
   render(){
@@ -55,6 +56,7 @@ class App extends Component {
           <Route path='/parent' component={Ortu} />      
           <Route path='/student' component={Murid} />      
           <Route path='/profile' component={Profile} />      
+          <Route path='/register' component={Register} />      
           {/* <Route path='/detail' component={MovieDetail} />
           <Route path='/signup' component={Register} />      
           <Route path='/admin' component={Admin} />      

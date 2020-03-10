@@ -18,3 +18,6 @@ export const LOGIN_SUCCESS = 'LOGIN_SUCCESS';
 
 //user 
 export const LOGOUT_USER = 'LOGOUT_USER';
+
+//profile
+export const INIT_PROFILE_IMAGE = 'INIT_PROFILE_IMAGE'

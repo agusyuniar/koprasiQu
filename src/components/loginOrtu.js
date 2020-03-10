@@ -4,14 +4,15 @@ import { connect } from "react-redux";
 // import { Input, Button } from '@fluentui/react';
 
 import { InputGroup, InputGroupAddon, InputGroupText, Input } from 'reactstrap';
-import {Button} from '@material-ui/core';
+import { Button } from '@material-ui/core';
 import ButtonGroup from '@material-ui/core/ButtonGroup';
-import {FormControl, InputLabel, OutlinedInput, InputAdornment, IconButton, Grid, TextField} from '@material-ui/core';
+import { FormControl, InputLabel, OutlinedInput, InputAdornment, IconButton, Grid, TextField } from '@material-ui/core';
 import VisibilityIcon from '@material-ui/icons/Visibility';
 import VisibilityOffIcon from '@material-ui/icons/VisibilityOff';
 import AccountCircle from '@material-ui/icons/AccountCircle';
 import VpnKeyRoundedIcon from '@material-ui/icons/VpnKeyRounded';
 import PersonRoundedIcon from '@material-ui/icons/PersonRounded';
+import Tooltip from '@material-ui/core/Tooltip';
 import './component.css';
 import { Transition, animated } from 'react-spring/renderprops';
 import { inputUsername, inputPassword, loginUserParent, hideUnhide, KeepLogin } from "../redux/action";
@@ -23,37 +24,38 @@ class LoginOrtu extends Component {
         index: 0
     }
 
+    keyPressAct = (e) => {
+        console.log(e.getModifierState('CapsLock'));
+        if (e.key == 'Enter') {
+            return this.onBtnLogin()
+        }
+
+    }
 
     onBtnLogin = () => {
         // var username = this.refs.username.value
         // var password = this.refs.password.value
-        
-        // if (username!=''&& password!='') {
-        //     this.props.login(username, password)
-        //     console.log(username,password);
-        //     console.log(this.props.login);
-        // }
-        // else { alert('harap diisi semua')}
+
 
         // this.props.loginUser(this.props.loginForm)
         // console.log(this.props.loginForm.username);
         // console.log(this.props.loginForm.password);
         console.log(this.props.loginForm);
         this.props.loginUserParent(this.props.loginForm)
-        
-        
-        
+
+
+
     }
 
-    
+
 
     render() {
-        
+
         console.log(this.props.user);
         console.log(this.props.loginForm);
-        
-        if(this.props.user.id){
-            this.state.redirect=true
+
+        if (this.props.user.id) {
+            this.state.redirect = true
             return <Redirect to="/profile" />
         }
 
@@ -96,45 +98,49 @@ class LoginOrtu extends Component {
                         </div>
 
                         <div className='col-6 container table float-left m-auto'>
-                        <div className='float-left'>
+                            <div className='float-left'>
                                 <h6><strong><PersonRoundedIcon /> Username</strong></h6>
                             </div>
                             <div className="input-group  mb-3">
-                                <input 
-                                    type="text" 
-                                    size='small' 
-                                    className="form-control" 
+                                <input
+                                    onKeyPress={(e) => this.keyPressAct(e)}
+                                    type="text"
+                                    size='small'
+                                    className="form-control"
                                     placeholder="Username"
-                                    value = {this.props.loginForm.username}
+                                    value={this.props.loginForm.username}
                                     onChange={(e) => this.props.inputUsername(e.target.value)}
                                 />
                             </div>
-                            
+
                             <div className='float-left'>
                                 <h6><VpnKeyRoundedIcon /><strong> Password</strong></h6>
                             </div>
                             <div className="input-group mb-3 ">
-                                <input 
-                                    type={this.props.loginForm.hidePassword 
-                                        ? 'password' /*kondisi true*/ 
+                                <input
+
+                                    onKeyPress={(e) => this.keyPressAct(e)}
+                                    type={this.props.loginForm.hidePassword
+                                        ? 'password' /*kondisi true*/
                                         : 'text' /*kondisi false*/
                                     }
-                                    className="form-control" 
-                                    placeholder="Password" 
-                                    value = {this.props.loginForm.password}
+                                    className="form-control"
+                                    placeholder="Password"
+                                    value={this.props.loginForm.password}
                                     onChange={(e) => this.props.inputPassword(e.target.value)}
                                 />
+
                                 <div className="input-group-append">
                                     <span className="input-group-text" id="basic-addon1" >
                                         {/* <VisibilityIcon  /> */}
-                                        {this.props.loginForm.hidePassword 
-                                            ? <VisibilityOffIcon  onClick={this.props.hideUnhide}/> /*kondisi true*/ 
-                                            : <VisibilityIcon  onClick={this.props.hideUnhide}/>/*kondisi false*/
+                                        {this.props.loginForm.hidePassword
+                                            ? <VisibilityOffIcon onClick={this.props.hideUnhide} /> /*kondisi true*/
+                                            : <VisibilityIcon onClick={this.props.hideUnhide} />/*kondisi false*/
                                         }
-                                        </span>
+                                    </span>
                                 </div>
-                            </div> 
-                            <p>{this.props.loginForm.error}</p>
+                            </div>
+                            <p style={{ fontSize: '12px', fontStyle: 'italic', color: 'red' }}>{this.props.loginForm.error}</p>
 
                             <Button
                                 variant="outlined"
@@ -142,6 +148,7 @@ class LoginOrtu extends Component {
                                 color="primary"
                                 className='shadow pr-5 pl-5'
                                 onClick={this.onBtnLogin}
+                                type='submit'
                             >
                                 Login
                             </Button>
@@ -187,8 +194,8 @@ class LoginOrtu extends Component {
     }
 }
 
-const mapStatetoProps = ({user,loginForm}) => {
-    return { user,loginForm }
+const mapStatetoProps = ({ user, loginForm }) => {
+    return { user, loginForm }
 }
 
-export default connect (mapStatetoProps/*ambil global state*/, {inputUsername, inputPassword, loginUserParent, hideUnhide, KeepLogin}/*isi global state (action creator)*/) (LoginOrtu);
+export default connect(mapStatetoProps/*ambil global state*/, { inputUsername, inputPassword, loginUserParent, hideUnhide, KeepLogin }/*isi global state (action creator)*/)(LoginOrtu);

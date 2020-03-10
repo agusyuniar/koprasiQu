@@ -49,10 +49,18 @@ export const loginUserParent = (user) => {
                     
                 })
             }).catch(err => {
-                console.log(err.response)
+                console.log(err.response )
+                if(err.response==undefined){
+                    return (
+                        dispatch({
+                            type: LOGIN_FAILED,
+                            payload: 'Database offline, silahkan coba beberapa saat lagi'
+                        })        
+                    )
+                }
                 dispatch({
                     type: LOGIN_FAILED,
-                    payload: err.response
+                    payload: err.response.data.message
                 })
             })
         } else {
@@ -62,28 +70,6 @@ export const loginUserParent = (user) => {
             })
         }
     }
-
-    /*
-    return async (dispatch) => {
-        try{
-            const res = await axios.get(API_URL_1+'/user/loginPrt', {username, password})
-            console.log(res.data);
-            
-            await localStorage.setItem('usertoken', res.data.token) //simpan di localstorage dgn nama usertoken
-            
-            dispatch({
-                type:LOGIN_SUCCESS,
-                payload:res.data
-            })
-            
-        }catch(err){
-            dispatch({
-                type:LOGIN_FAILED,
-                payload: err.response ? err.response.data.message : err.name
-            })
-        }
-    }
-    */
 }
 
 
