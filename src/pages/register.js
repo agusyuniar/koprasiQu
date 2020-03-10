@@ -16,16 +16,17 @@ import VpnKeyRoundedIcon from '@material-ui/icons/VpnKeyRounded';
 import PersonRoundedIcon from '@material-ui/icons/PersonRounded';
 import '../components/component.css';
 import { Transition, animated } from 'react-spring/renderprops';
-import { inputUsername, inputPassword, loginUserParent, hideUnhide, KeepLogin } from "../redux/action";
+import { inputText, hideUnhide, checkUncheck, registerParent } from "../redux/action";
 
 
-class LoginOrtu extends Component {
+class RegisterForm extends Component {
     state = {
         char: false,
         spec: false,
         num: false,
         show: false,
-        border: false
+        border: false,
+        checked: true
     }
 
     keyPressAct = (e) => {
@@ -37,8 +38,15 @@ class LoginOrtu extends Component {
     }
 
     onBtnRegister = () => {
-        console.log(this.props.loginForm);
-        this.props.loginUserParent(this.props.loginForm)
+        // if(!this.props.regisForm.checked){
+        //     return this.setState({checked:false})
+        // }
+        this.props.registerParent(this.props.regisForm)
+        console.log(this.props.regisForm);
+        // if(this.props.regisForm.username){
+        //     return <Redirect to='/regisdone'></Redirect>
+        // }
+        
     }
 
     handleChange = (e) => {
@@ -62,8 +70,8 @@ class LoginOrtu extends Component {
 
     render() {
 
-        console.log(this.props.user);
-        console.log(this.props.loginForm);
+        // console.log(this.props.user);
+        console.log(this.props.regisForm);
 
         if (this.props.user.id) {
             this.state.redirect = true
@@ -95,17 +103,22 @@ class LoginOrtu extends Component {
                                 <div class="input-group-prepend">
                                     <span class="input-group-text">Nama Depan </span>
                                 </div>
-                                <input type="text" aria-label="First name" class="form-control" placeholder='  nama depan  ' />
+                                <input 
+                                    value={this.props.regisForm.firstname} 
+                                    onChange={(val)=>this.props.inputText('firstname',val.target.value)} 
+                                    type="text" 
+                                    class="form-control" 
+                                    placeholder='  nama depan  ' />
                                 <div class="input-group-prepend">
-                                    <span class="input-group-text" >Belakang</span>
+                                    <span className="input-group-text" >Belakang</span>
                                 </div>
-                                <input type="text" aria-label="Last name" class="form-control" placeholder='  nama belakang' />
+                                <input value={this.props.regisForm.lastname} onChange={(val) => this.props.inputText('lastname', val.target.value)} type="text" aria-label="Last name" class="form-control" placeholder='  nama belakang' />
                             </div>
                         </div>
                         <span className="input-group pt-2 pb-2">Alamat</span>
                         <div className='m-auto'>
                             <div class="input-group input-group-sm ">
-                                <input type="text" aria-label="Address" class="form-control" placeholder='  alamat lengkap sesuai domisili  ' />
+                                <input value={this.props.regisForm.alamat} onChange={(val) => this.props.inputText('alamat', val.target.value)} type="text" aria-label="Address" class="form-control" placeholder='  alamat lengkap sesuai domisili  ' />
                             </div>
                         </div>
                         <span className="input-group mt-2 pb-2" onDragEnter>
@@ -113,7 +126,10 @@ class LoginOrtu extends Component {
                     </span>
                         <div className='m-auto'>
                             <div class="input-group input-group-sm ">
-                                <input type="text" aria-label="email" class="form-control" placeholder='  email aktif dan sesuai dengan email murid terdaftar  ' />
+                                <input 
+                                    value={this.props.regisForm.email} 
+                                    onChange={(val)=>this.props.inputText('email',val.target.value)} 
+                                    type="text" aria-label="email" class="form-control" placeholder='  email aktif dan sesuai dengan email murid terdaftar  ' />
                             </div>
                         </div>
 
@@ -123,7 +139,11 @@ class LoginOrtu extends Component {
                         <span className="input-group m-auto pb-2">Username</span>
                         <div className=' m-auto '>
                             <div class="input-group input-group-sm ">
-                                <input type="text" aria-label="username" class="form-control" placeholder='  masukkan username  ' />
+                                <input 
+                                    value={this.props.regisForm.username} 
+                                    onChange={(val)=>this.props.inputText('password',val.target.value)} 
+                                    type="text" 
+                                    className="form-control" placeholder='  masukkan username  ' />
                             </div>
                         </div>
                         <span className="input-group mt-2 pb-2" >
@@ -155,7 +175,12 @@ class LoginOrtu extends Component {
                         </span>
                         <div className='m-auto '>
                             <div class="input-group input-group-sm ">
-                                <input type="text" aria-label="email" class="form-control" placeholder='  masukkan password' onChange={this.handleChange} />
+                                <input 
+                                    value={this.props.regisForm.password} 
+                                    // onChange={(e)=>this.handleChange('username',e)} 
+                                    onChange={(val)=>this.props.inputText('password',val.target.value)}
+                                    onInputCapture={this.handleChange}
+                                    type="text" aria-label="email" class="form-control" placeholder='  masukkan password'  />
                             </div>
                         </div>
                         <span className="input-group mt-2 pb-2" >
@@ -163,20 +188,26 @@ class LoginOrtu extends Component {
                     </span>
                         <div className='m-auto '>
                             <div class="input-group input-group-sm ">
-                                <input type="text" aria-label="email" class="form-control" placeholder='  masukkan password' onChange />
+                                <input 
+                                    value={this.props.regisForm.confPassword} 
+                                    onChange={(val)=>this.props.inputText('confPassword',val.target.value)} 
+                                    type="text" aria-label="email" class="form-control" placeholder='  masukkan password'  />
                             </div>
                         </div>
 
                         <div class="mt-3 input-group-sm ">
                             <Checkbox
-                                defaultChecked={false}
+                                defaultChecked={this.props.regisForm.checked}
+                                onClick={this.props.checkUncheck}
                                 color="default"
                                 size="small"
                                 value="small"
                                 inputProps={{ 'aria-label': 'checkbox with small size' }}
                             />
                             <span>Saya setuju dengan segala <a>persyaratan yang diajukan</a> </span>
-                        </div><br />
+                        </div>
+                        {this.state.checked ? <br/> : <a>Silakan centang setuju untuk melanjutkan registrasi</a> }
+                        <br />
                         <Button
                             variant="outlined"
                             size='small'
@@ -196,8 +227,8 @@ class LoginOrtu extends Component {
     }
 }
 
-const mapStatetoProps = ({ user, loginForm }) => {
-    return { user, loginForm }
+const mapStatetoProps = ({ user, regisForm }) => {
+    return { user, regisForm }
 }
 
-export default connect(mapStatetoProps/*ambil global state*/, { inputUsername, inputPassword, loginUserParent, hideUnhide, KeepLogin }/*isi global state (action creator)*/)(LoginOrtu);
+export default connect(mapStatetoProps/*ambil global state*/, { inputText, checkUncheck, registerParent }/*isi global state (action creator)*/)(RegisterForm);
