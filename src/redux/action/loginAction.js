@@ -45,8 +45,7 @@ export const loginUserParent = (user) => {
                 localStorage.setItem('ptoken', res.data.token)
                 dispatch({
                     type: LOGIN_SUCCESS,
-                    payload: res.data
-                    
+                    payload: res.data 
                 })
             }).catch(err => {
                 console.log(err.response )

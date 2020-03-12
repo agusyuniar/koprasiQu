@@ -351,3 +351,11 @@ main > div {
     background-image: url('../img/bgloginpage.png');
     background-size: 100%;
 }
+.bg2 {
+    background-image: url('../img/verif_img.png');
+    background-size: 50vh;
+    background-repeat: no-repeat;
+    background-position-x: center;
+    background-position-y: bottom;
+    /* margin-bottom: -50px; */
+}

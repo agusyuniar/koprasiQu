@@ -8,6 +8,7 @@ import Homepage from './pages/home';
 import Profile from "./pages/profile";
 import Register from './pages/register';
 import RegSuccess from './pages/regSuccess';
+import verify from './pages/verify';
 
 import Loginpage from './pages/login'
 import Navbar from './components/navbar'
@@ -58,7 +59,8 @@ class App extends Component {
           <Route path='/student' component={Murid} />      
           <Route path='/profile' component={Profile} />      
           <Route path='/register' component={Register} />      
-          <Route path='/registerSuccess' component={RegSuccess} />      
+          <Route path='/registerSuccess' component={RegSuccess}/>      
+          <Route path='/verify' component={verify}/>      
           {/* <Route path='/detail' component={MovieDetail} />
           <Route path='/signup' component={Register} />      
           <Route path='/admin' component={Admin} />      

@@ -17,7 +17,7 @@ class LoginPage extends Component {
                         <div className='p-5' style={{ borderRadius: '10px', backgroundColor: 'rgba(255, 255, 255, .8)' }}>
                             <h3 className='p-5'><strong>Selamat, akun anda berhasil didaftarkan!</strong></h3>
                             <h5 className=''>Email verifikasi telah dikirimkan ke email anda.</h5>
-                            <p className=''>Anda dapat <Link to='/paret'>login sekarang</Link></p>
+                            <p className=''>Anda dapat <Link to='/parent'>login sekarang</Link></p>
                             <h6 className='p-5'>Verifikasi untuk mengoptimalkan akun anda</h6>
                         </div>
                     </div>

@@ -1,6 +1,6 @@
 import axios from "axios";
 import { API_URL_1 } from "../../helpers/apiurl";
-import {  INPUT_TEXT, ON_REGISTER_PARENT, CHEKCED_TERMS_REGISTER, REGISTER_FAILED, REGISTER_SUCCESS, HIDE_UNHIDE } from "./types";
+import {  INPUT_TEXT, ON_REGISTER_PARENT, CHEKCED_TERMS_REGISTER, REGISTER_FAILED, REGISTER_SUCCESS, HIDE_UNHIDE, LOGIN_SUCCESS } from "./types";
 
 
 export const inputText = (prop, value) => {
@@ -61,5 +61,29 @@ export const registerParent = (val) => {
                 payload: 'Semua form harus diisi'
             })
         }
+    }
+}
+
+export const verifyEmail = (token) => {
+    console.log(token);
+    
+    return (dispatch) => {
+        console.log('kirimToken : ',token);
+        
+        axios.post(API_URL_1 + '/user/emailVerification', { token })
+        
+            .then((res) => {
+                console.log(res.data.token)
+                localStorage.setItem('ptoken', res.data.token)
+                dispatch({
+                    type: LOGIN_SUCCESS,
+                    payload: res.data 
+                })
+            }).catch((err) => {
+                console.log(err)
+                dispatch({
+                    type: REGISTER_FAILED
+                })
+            })
     }
 }
