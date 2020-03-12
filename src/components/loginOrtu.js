@@ -133,7 +133,7 @@ class LoginOrtu extends Component {
                                 <div className="input-group-append">
                                     <span className="input-group-text" id="basic-addon1" >
                                         {/* <VisibilityIcon  /> */}
-                                        {this.props.loginForm.hidePassword
+                                        {this.props.loginForm.hidePassword 
                                             ? <VisibilityOffIcon onClick={this.props.hideUnhide} /> /*kondisi true*/
                                             : <VisibilityIcon onClick={this.props.hideUnhide} />/*kondisi false*/
                                         }

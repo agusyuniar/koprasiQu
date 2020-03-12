@@ -2,21 +2,26 @@ import {
     INPUT_TEXT,
     CHEKCED_TERMS_REGISTER,
     HIDE_UNHIDE,
+    ON_REGISTER_PARENT,
+    REGISTER_FAILED,
+    REGISTER_SUCCESS
     
 } from '../action/types';
 
 const INITIAL_STATE = {
-    firstname: null,
-    lastname:null,
-    alamat:null,
-    email: null,
-    username:null,
-    password: null,
-    confPassword:null,
+    firstname: '',
+    lastname:'',
+    alamat:'',
+    email: '',
+    username:'',
+    password: '',
+    confPassword:'',
     hidePassword: true,
-    error: null,
+    error: '',
     checked:false,
-    loading: false
+    loading: false,
+    hidePassword: true,
+    success:false
 }
 
 export default (state=INITIAL_STATE, action) => {
@@ -28,6 +33,12 @@ export default (state=INITIAL_STATE, action) => {
             return{...state, checked:!state.checked}
         case HIDE_UNHIDE :
             return { ...state, hidePassword: !state.hidePassword }
+        case ON_REGISTER_PARENT :
+            return { ...state, error: '' }
+        case REGISTER_FAILED : 
+            return {...state, error:action.payload}
+        case REGISTER_SUCCESS : 
+            return {INITIAL_STATE, success:true}
         // case USER_LOGIN_FAIL :
         //     return { ...state, loading: false, error: action.payload }
         // case LOADING_LOGIN :

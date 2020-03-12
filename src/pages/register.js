@@ -22,11 +22,11 @@ import { inputText, hideUnhide, checkUncheck, registerParent } from "../redux/ac
 class RegisterForm extends Component {
     state = {
         char: false,
-        spec: false,
+        special: false,
         num: false,
         show: false,
         border: false,
-        checked: true
+        warning: false
     }
 
     keyPressAct = (e) => {
@@ -34,55 +34,80 @@ class RegisterForm extends Component {
         if (e.key == 'Enter') {
             return this.onBtnLogin()
         }
-
     }
 
     onBtnRegister = () => {
-        // if(!this.props.regisForm.checked){
-        //     return this.setState({checked:false})
-        // }
         this.props.registerParent(this.props.regisForm)
-        console.log(this.props.regisForm);
-        // if(this.props.regisForm.username){
-        //     return <Redirect to='/regisdone'></Redirect>
+
+        // if(this.props.regisForm.checked){
+        //     console.log('regSuccess: ',this.props.regisForm.success);
+        // }else{
+        //     this.setState({warning:!this.state.warning})
         // }
-        
     }
 
     handleChange = (e) => {
         this.setState({ show: true })
         console.log(this.state.show);
-
+        let huruf = /[a-z]/
         let pass = e.target.value
         let num = /[0-9]/
-        let spec = /[!@#$%^&*;]/
+        let special = /[!@#$%^&*;]/
         this.setState({
+            huruf: huruf.test(pass),
             num: num.test(pass),
-            spec: spec.test(pass),
+            special: special.test(pass),
             char: pass.length > 7,
-            border: (num.test(pass) && spec.test(pass) && (pass.length > 7))
+            border: (huruf.test(pass) && num.test(pass) && special.test(pass) && pass.length > 7)
         })
     }
     showReq = () => {
         this.setState({ show: true })
     }
 
+    levelPass = () => {
+        if (this.state.char) {//pass sdh 8 dan sdh tampil
+            if (this.state.char && this.state.special && this.state.num) {
+                return <a className='text-success font-weight-bold font-italic'>password kuat!</a>
+            } else if ((this.state.huruf && this.state.num) || (this.state.huruf && this.state.special) || (this.state.num && this.state.special)) {
+                return <a className='text-warning font-weight-bold font-italic'>password standard</a>
+            } else {
+                return <a className='text-danger font-weight-bold font-italic'>password lemah!</a>
+            }
+        } else {
+            return <a className='text-seondary font-italic'>password harus 8 karakter</a>
+        }
+    }
 
     render() {
 
         // console.log(this.props.user);
+        console.log('warning = ', this.state.warning);
         console.log(this.props.regisForm);
 
         if (this.props.user.id) {
             this.state.redirect = true
             return <Redirect to="/profile" />
         }
+        
+        // if(this.props.regisForm.checked){
+        //     this.state.warning=false
+        // }else{
+        //     this.state.warning=true
+        // }
 
-
-        let { char, spec, num, show, border, same } = this.state
-        if (this.state.redirect) {
-            return <Redirect push to="/student" />;
+        if(this.props.regisForm.success){
+            this.props.regisForm.success=false
+            return (<Redirect push to="/registerSuccess"/>)
         }
+
+        let { show } = this.state
+        
+        // if(this.props.regisForm.success){
+        //     this.setState({redirect:true})
+        //     this.props.regisForm.success=false
+        //     return <Redirect push to="/registerSuccess"/>
+        // }
 
         return (
             <div className='bg'>
@@ -103,11 +128,11 @@ class RegisterForm extends Component {
                                 <div class="input-group-prepend">
                                     <span class="input-group-text">Nama Depan </span>
                                 </div>
-                                <input 
-                                    value={this.props.regisForm.firstname} 
-                                    onChange={(val)=>this.props.inputText('firstname',val.target.value)} 
-                                    type="text" 
-                                    class="form-control" 
+                                <input
+                                    value={this.props.regisForm.firstname}
+                                    onChange={(val) => this.props.inputText('firstname', val.target.value)}
+                                    type="text"
+                                    class="form-control"
                                     placeholder='  nama depan  ' />
                                 <div class="input-group-prepend">
                                     <span className="input-group-text" >Belakang</span>
@@ -126,9 +151,9 @@ class RegisterForm extends Component {
                     </span>
                         <div className='m-auto'>
                             <div class="input-group input-group-sm ">
-                                <input 
-                                    value={this.props.regisForm.email} 
-                                    onChange={(val)=>this.props.inputText('email',val.target.value)} 
+                                <input
+                                    value={this.props.regisForm.email}
+                                    onChange={(val) => this.props.inputText('email', val.target.value)}
                                     type="text" aria-label="email" class="form-control" placeholder='  email aktif dan sesuai dengan email murid terdaftar  ' />
                             </div>
                         </div>
@@ -139,48 +164,39 @@ class RegisterForm extends Component {
                         <span className="input-group m-auto pb-2">Username</span>
                         <div className=' m-auto '>
                             <div class="input-group input-group-sm ">
-                                <input 
-                                    value={this.props.regisForm.username} 
-                                    onChange={(val)=>this.props.inputText('password',val.target.value)} 
-                                    type="text" 
+                                <input
+                                    value={this.props.regisForm.username}
+                                    onChange={(val) => this.props.inputText('username', val.target.value)}
+                                    type="text"
                                     className="form-control" placeholder='  masukkan username  ' />
                             </div>
                         </div>
                         <span className="input-group mt-2 pb-2" >
                             Password
-                    <div className='ml-3'>
-                                {
-                                    show ? <a style={{ fontSize: '10pt', fontStyle: 'italic', color: 'red' }}>
-                                        {
-                                            char && spec && num ? <a style={{ color: 'green' }}>Mantap!</a>
-                                                :
-                                                <a style={{ color: 'red' }}>
-                                                    Password harus&nbsp;
-                                        {
-                                                        char ? <a /> : <a style={{ color: 'red' }}> 8 karakter atau lebih,&nbsp;</a>
-                                                    }
-                                                    {
-                                                        spec ? <a /> : <a style={{ color: 'red' }}>ada spesial karakter,&nbsp;
-                                        </a>
-                                                    }
-                                                    {
-                                                        num ? <a /> : <a style={{ color: 'red' }}> ada angka. </a>
-                                                    }
-
-                                                </a>
-                                        }
-                                    </a> : null
-                                }
-                            </div>
+                            <div className='ml-3'> {show ? this.levelPass() : null} </div>
                         </span>
-                        <div className='m-auto '>
-                            <div class="input-group input-group-sm ">
-                                <input 
-                                    value={this.props.regisForm.password} 
-                                    // onChange={(e)=>this.handleChange('username',e)} 
-                                    onChange={(val)=>this.props.inputText('password',val.target.value)}
-                                    onInputCapture={this.handleChange}
-                                    type="text" aria-label="email" class="form-control" placeholder='  masukkan password'  />
+                        <div className="input-group mb-3 input-group-sm">
+                            <input
+                                onKeyPress={(e) => this.keyPressAct(e)}
+                                type={this.props.regisForm.hidePassword
+                                    ? 'password' /*kondisi true*/
+                                    : 'text' /*kondisi false*/
+                                }
+                                className="form-control float-left col-7 "
+                                placeholder="Password"
+                                value={this.props.regisForm.password}
+                                onChange={(val) => this.props.inputText('password', val.target.value)}
+                                onInputCapture={this.handleChange}
+                            />
+
+                            <div className="input-group-append">
+                                <span className="input-group-text" id="basic-addon1" >
+                                    {/* <VisibilityIcon  /> */}
+                                    {this.props.regisForm.hidePassword
+                                        ? <VisibilityOffIcon onClick={this.props.hideUnhide} fontSize='small' /> /*kondisi true*/
+                                        : <VisibilityIcon onClick={this.props.hideUnhide} fontSize='small' />/*kondisi false*/
+                                    }
+                                </span>
                             </div>
                         </div>
                         <span className="input-group mt-2 pb-2" >
@@ -188,10 +204,13 @@ class RegisterForm extends Component {
                     </span>
                         <div className='m-auto '>
                             <div class="input-group input-group-sm ">
-                                <input 
-                                    value={this.props.regisForm.confPassword} 
-                                    onChange={(val)=>this.props.inputText('confPassword',val.target.value)} 
-                                    type="text" aria-label="email" class="form-control" placeholder='  masukkan password'  />
+                                <input
+                                    value={this.props.regisForm.confPassword}
+                                    onChange={(val) => this.props.inputText('confPassword', val.target.value)}
+                                    type="text"
+                                    aria-label="email"
+                                    class="form-control float-left col-7"
+                                    placeholder='  masukkan password' />
                             </div>
                         </div>
 
@@ -204,9 +223,12 @@ class RegisterForm extends Component {
                                 value="small"
                                 inputProps={{ 'aria-label': 'checkbox with small size' }}
                             />
-                            <span>Saya setuju dengan segala <a>persyaratan yang diajukan</a> </span>
+                            <span >Saya setuju dengan segala <a>persyaratan yang diajukan</a> </span>
                         </div>
-                        {this.state.checked ? <br/> : <a>Silakan centang setuju untuk melanjutkan registrasi</a> }
+                        {this.props.regisForm.checked ? null :
+                        <a className='text-danger text-sm font-italic'>{this.props.regisForm.error}</a>
+                        }
+                        {/* {this.state.warning ? <a className='text-danger text-sm'>Silakan centang setuju untuk melanjutkan registrasi<br /></a> : <br />} */}
                         <br />
                         <Button
                             variant="outlined"
@@ -231,4 +253,4 @@ const mapStatetoProps = ({ user, regisForm }) => {
     return { user, regisForm }
 }
 
-export default connect(mapStatetoProps/*ambil global state*/, { inputText, checkUncheck, registerParent }/*isi global state (action creator)*/)(RegisterForm);
+export default connect(mapStatetoProps/*ambil global state*/, { inputText, checkUncheck, registerParent, hideUnhide }/*isi global state (action creator)*/)(RegisterForm);

@@ -5,6 +5,7 @@ import axios from 'axios'
 import { API_URL_1 } from "../helpers/apiurl";
 import AccountCircleTwoToneIcon from '@material-ui/icons/AccountCircleTwoTone';
 import { Table, Button } from "@material-ui/core";
+import CheckCircleOutlineRoundedIcon from '@material-ui/icons/CheckCircleOutlineRounded';
 import { Link } from "react-router-dom";
 import Tooltip from '@material-ui/core/Tooltip';
 import LinearProgress from '@material-ui/core/LinearProgress';
@@ -103,36 +104,43 @@ class ProfilePage extends Component {
     }
 
         renderListAnak = () => {
-
-            return this.props.user.anak.map((val, index) => {
-                console.log(val.nim);
-                console.log(val.nama);
-                return (
-                    <tr className='border-bottom m-3'>
-                        <td className='pr-3 mt-4'>{index + 1}</td>
-                        <td >
-                            <tr >
-                                <td style={{ paddingRight: '120px' }}>NIM</td>
-                                <td>{val.nim}</td>
+            console.log(this.props.user.anak[0].nim);
+            if(this.props.user.anak[0].nim===null){
+                return <p style={{fontSize:'12pt'}}>data anak tidak ditemukan atau belum terdaftar</p>
+            }
+            else if(this.props.user.verified===0){
+                return <a  style={{fontSize:'12pt'}}>Data anak tersedia, silakan verifikasi email untuk menampilkan data</a>
+            }
+            else {
+                    return this.props.user.anak.map((val, index) => {
+                        console.log(val.nim);
+                        console.log(val.nama);
+                        return (
+                            <tr className='border-bottom m-3'>
+                                <td className='pr-3 mt-4'>{index + 1}</td>
+                                <td >
+                                    <tr >
+                                        <td style={{ paddingRight: '120px' }}>NIM</td>
+                                        <td>{val.nim}</td>
+                                    </tr>
+                                    <tr>
+                                        <td >Nama Siswa</td>
+                                        <td>{val.nama}</td>
+                                    </tr>
+                                    <tr>
+                                        <td >Alamat</td>
+                                        <td>{val.alamat}</td>
+                                    </tr>
+                                    <tr>
+                                        <td >Saldo</td>
+                                        <td>Rp {val.saldo.toLocaleString()}</td>
+                                    </tr>
+                                </td>
+                                <td style={{ width: '15%' }}><Button>Detail</Button></td>
                             </tr>
-                            <tr>
-                                <td >Nama Siswa</td>
-                                <td>{val.nama}</td>
-                            </tr>
-                            <tr>
-                                <td >Alamat</td>
-                                <td>{val.alamat}</td>
-                            </tr>
-                            <tr>
-                                <td >Saldo</td>
-                                <td>Rp {val.saldo.toLocaleString()}</td>
-                            </tr>
-                        </td>
-                        <td style={{ width: '15%' }}><Button>Detail</Button></td>
-                    </tr>
-                )
-            })
-
+                        )
+                    })
+            }
         }
 
         render() {
@@ -142,8 +150,6 @@ class ProfilePage extends Component {
             console.log(this.props.user.profil_img);
             // console.log(this.state.openModalEditPP);
             console.log(localStorage.getItem('ptoken'));
-            console.log(this.props.user.id);
-
             console.log(this.props.profile);
 
 
@@ -170,7 +176,7 @@ class ProfilePage extends Component {
                         {/* title */}
                         <div className='row'>
                             <div className='col-6 float-left'>
-                                <h4><AccountCircleTwoToneIcon alignmentBaseline='auto' /> {this.props.user.username}</h4>
+                                <h4 ><AccountCircleTwoToneIcon alignmentBaseline='auto' /> {this.props.user.username} <span style={{paddingLeft:'5%', fontSize:'10pt',color:'green', alignContent:'middle'}}><CheckCircleOutlineRoundedIcon fontSize='small'/> email terverifikasi</span></h4>
                             </div>
                             <div className='col-6'>
                                 <span className='float-right'>Login terakhir : {this.props.user.lastlogin}</span>
@@ -212,6 +218,7 @@ class ProfilePage extends Component {
                                 <div className='col-9'>
 
                                     {/* data pribadi */}
+                                    
                                     <div className='h5 pt-3'>
                                         Data diri
                                         <Tooltip title='Perbarui data diri anda' arrow leaveDelay='100'>
@@ -257,13 +264,13 @@ class ProfilePage extends Component {
                                                 </a>
                                             </Tooltip>
                                         </div>
-
-                                        <table style={{ width: '100%' }}>
-                                            <tbody>
-                                                {this.renderListAnak()}
-
-                                            </tbody>
-                                        </table>
+                                        
+                                            <table style={{ width: '100%' }}>
+                                                <tbody>
+                                                    {this.renderListAnak()}
+                                                </tbody>
+                                            </table>
+                                        
                                     </div>
 
                                 </div>
