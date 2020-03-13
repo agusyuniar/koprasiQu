@@ -31,7 +31,7 @@ render() {
                         <div className='p-5' style={{ borderRadius: '10px', backgroundColor: 'rgba(255, 255, 255, .8)' }}>
                             
                             <h3 className='p-5'><strong>Selamat {this.props.user.firstname}, akun anda telah terverifikasi</strong></h3>
-                            <h5 className=''>Jika belum login silakan refresh halaman</h5>
+                            <h5 className=''>Jika belum otomatis login silakan refresh halaman ini</h5>
                             <h5 className=''>atau masuk melalui halaman <Link to='/parent'>login</Link></h5>
                             </div>
                     </div>

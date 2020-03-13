@@ -1,5 +1,3 @@
-import axios from 'axios';
-import { API_URL_1 } from '../../helpers/apiurl'
 import {
     INIT_PROFILE_IMAGE
 } from './types';

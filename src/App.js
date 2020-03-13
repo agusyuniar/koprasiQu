@@ -9,7 +9,10 @@ import Profile from "./pages/profile";
 import Register from './pages/register';
 import RegSuccess from './pages/regSuccess';
 import verify from './pages/verify';
+import detailMurid from './pages/detailMurid';
+import BelanjaHome from './pages/belanjaHome';
 
+/*________________only_comp________________*/
 import Loginpage from './pages/login'
 import Navbar from './components/navbar'
 import Footer from './components/footer'
@@ -58,9 +61,11 @@ class App extends Component {
           <Route path='/parent' component={Ortu} />      
           <Route path='/student' component={Murid} />      
           <Route path='/profile' component={Profile} />      
+          <Route path='/detailMurid' component={detailMurid} />      
           <Route path='/register' component={Register} />      
           <Route path='/registerSuccess' component={RegSuccess}/>      
           <Route path='/verify' component={verify}/>      
+          <Route path='/kopshop' component={BelanjaHome}/>      
           {/* <Route path='/detail' component={MovieDetail} />
           <Route path='/signup' component={Register} />      
           <Route path='/admin' component={Admin} />      

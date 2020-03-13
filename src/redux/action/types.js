@@ -20,3 +20,6 @@ export const LOGOUT_USER = 'LOGOUT_USER';
 
 //profile
 export const INIT_PROFILE_IMAGE = 'INIT_PROFILE_IMAGE'
+
+//DETAL_murid
+export const DETAIL_NIM_SELECT = 'DETAIL_NIM_SELECT'

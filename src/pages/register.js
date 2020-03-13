@@ -75,7 +75,7 @@ class RegisterForm extends Component {
                 return <a className='text-danger font-weight-bold font-italic'>password lemah!</a>
             }
         } else {
-            return <a className='text-seondary font-italic'>password harus 8 karakter</a>
+            return <a className='text-secondary font-italic'>password sangat lemah</a>
         }
     }
 
@@ -89,12 +89,6 @@ class RegisterForm extends Component {
             this.state.redirect = true
             return <Redirect to="/profile" />
         }
-        
-        // if(this.props.regisForm.checked){
-        //     this.state.warning=false
-        // }else{
-        //     this.state.warning=true
-        // }
 
         if(this.props.regisForm.success){
             this.props.regisForm.success=false
@@ -225,9 +219,9 @@ class RegisterForm extends Component {
                             />
                             <span >Saya setuju dengan segala <a>persyaratan yang diajukan</a> </span>
                         </div>
-                        {this.props.regisForm.checked ? null :
+                        {/* {this.props.regisForm.checked ? null :
+                        } */}
                         <a className='text-danger text-sm font-italic'>{this.props.regisForm.error}</a>
-                        }
                         {/* {this.state.warning ? <a className='text-danger text-sm'>Silakan centang setuju untuk melanjutkan registrasi<br /></a> : <br />} */}
                         <br />
                         <Button

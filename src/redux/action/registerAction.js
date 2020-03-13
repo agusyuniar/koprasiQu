@@ -21,7 +21,7 @@ export const checkUncheck = () => {
 
 
 export const registerParent = (val) => {
-    console.log(val.firstname);
+    console.log(val.checked);
     return (dispatch)=>{
         dispatch({type:ON_REGISTER_PARENT})
         if(val.firstname&&val.lastname&&val.alamat&&val.email&&val.username&&val.password&&val.confPassword){
@@ -35,9 +35,18 @@ export const registerParent = (val) => {
                         username:val.username,
                         password:val.password
                     })
-                    console.log('regis success');
-                    dispatch({
-                        type:REGISTER_SUCCESS
+                    .then(res=>{
+                        console.log('regis success');
+                        dispatch({
+                            type:REGISTER_SUCCESS
+                        })
+                    })
+                    .catch(err=> {
+                        console.log(err.response.data.message);
+                        dispatch({
+                            type: REGISTER_FAILED,
+                            payload: err.response.data.message
+                        })
                     })
                 } else {
                     console.log('belum di centang');
