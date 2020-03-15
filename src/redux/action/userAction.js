@@ -3,6 +3,7 @@ import axios from 'axios';
 import { LOGIN_SUCCESS, LOGOUT_USER } from "./types";
 
 import { API_URL_1 } from '../../helpers/apiurl'
+import { unstable_renderSubtreeIntoContainer } from 'react-dom';
 
 export const confirmLogin = (user) => {
     return {
@@ -36,8 +37,10 @@ export const KeepLogin = (token) => {
     }
 }
 
+
 export const logoutUser = () => {
     localStorage.removeItem('ptoken')
+    localStorage.removeItem('nim')
     return {
         type: LOGOUT_USER
     }

@@ -11,6 +11,7 @@ import RegSuccess from './pages/regSuccess';
 import verify from './pages/verify';
 import detailMurid from './pages/detailMurid';
 import BelanjaHome from './pages/belanjaHome';
+import AdminPage from './pages/admin';
 
 /*________________only_comp________________*/
 import Loginpage from './pages/login'
@@ -66,6 +67,7 @@ class App extends Component {
           <Route path='/registerSuccess' component={RegSuccess}/>      
           <Route path='/verify' component={verify}/>      
           <Route path='/kopshop' component={BelanjaHome}/>      
+          <Route path='/admin' component={AdminPage}/>      
           {/* <Route path='/detail' component={MovieDetail} />
           <Route path='/signup' component={Register} />      
           <Route path='/admin' component={Admin} />      

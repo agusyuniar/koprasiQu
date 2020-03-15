@@ -91,7 +91,7 @@ nav.turun{
     /* box-shadow: 0 10px 5px rgba(0, 99, 99, 0.7) !important; */
     height: 40px !important;
     transition: .5s;
-    top: 70px;
+    top: 67px;
 }
 nav.turun .logo a{
     
@@ -164,10 +164,16 @@ nav.turun .kotaklogin svg{
 .tebal{
     font-weight: 400 !important;
     padding: 0 10px 0 10px !important;
+    border-right: 0px solid teal;
+    border-left: 0px solid teal;
 }
 
 .tebal:hover{
-    font-weight: 700 !important;
+    font-weight: 500 !important;
+    border-right: 2px solid teal;
+    border-left: 2px solid teal;
+    border-radius: 20px;
+    transition: 0.2s !important;
 }
 
 .kotaklogin{

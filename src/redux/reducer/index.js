@@ -4,11 +4,17 @@ import loginReducer from "./loginReducer";
 import profileReducer from "./profileReducer";
 import registerReducer from "./registerReducer";
 import detailMuridReducer from "./detailMuridReducer";
+import productReducer from "./productReducer";
+import getDataAdminReducer from "./getDataAdminReducer";
+import adminReducer from "./adminReducer";
 
 export default combineReducers ({
     user : userReducer,
     loginForm : loginReducer,
     profile : profileReducer,
     regisForm : registerReducer,
-    detailMurid : detailMuridReducer
+    detailMurid : detailMuridReducer,
+    productReducer : productReducer,
+    getData : getDataAdminReducer,
+    adminEdit : adminReducer
 })

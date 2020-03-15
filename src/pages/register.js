@@ -201,7 +201,7 @@ class RegisterForm extends Component {
                                 <input
                                     value={this.props.regisForm.confPassword}
                                     onChange={(val) => this.props.inputText('confPassword', val.target.value)}
-                                    type="text"
+                                    type="password"
                                     aria-label="email"
                                     class="form-control float-left col-7"
                                     placeholder='  masukkan password' />
