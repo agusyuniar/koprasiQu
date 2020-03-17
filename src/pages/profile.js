@@ -30,11 +30,10 @@ class ProfilePage extends Component {
 
 
     onEditImageChange = (e) => {
-        console.log(e);
+        console.log(e.target.files);
 
         if (e.target.files[0]) {
             this.setState({ editImageName: e.target.files[0].name, editImageFile: e.target.files[0] })
-
         }
         else {
             this.setState({ editImageName: 'Select Image...', editImageFile: undefined })
@@ -184,6 +183,7 @@ class ProfilePage extends Component {
     //     console.log(localStorage.getItem('ptoken'));
     //     console.log(this.props.detailMurid);
     //     console.log(this.state.selectedMurid);
+        console.log(this.state.editImageFile);
         
 
 
@@ -212,8 +212,6 @@ class ProfilePage extends Component {
                             <h4 ><AccountCircleTwoToneIcon alignmentBaseline='auto' /> {this.props.user.username} 
                             </h4>
                         </div>
-                        {/* <div className='col-4 float-left'>
-                        </div> */}
                         <div className='col-6'>
                             <span className='float-right'>Login terakhir : {this.props.user.lastlogin}</span>
                         </div>
@@ -240,7 +238,7 @@ class ProfilePage extends Component {
                                         <ModalHeader >Ubah Foto</ModalHeader>
                                         <ModalBody>
 
-                                            <CustomInput id="editImagePost" type="file" label={this.state.editImageName} onChange={this.onEditImageChange} multiple />
+                                            <CustomInput id="editImagePost" type="file" label={this.state.editImageName} onChange={this.onEditImageChange} />
                                             {/* <input type='file' placeholder={this.state.editImageName} onChange={this.onEditImageChange} /> */}
                                             <div style={{ fontSize: '10pt', margin: '20px 20px 20px 5px', fontWeight: 'initial' }}>format file yang diizinkan :  *.jpg  *.jpeg  *.png  *.gif</div>
                                         </ModalBody>

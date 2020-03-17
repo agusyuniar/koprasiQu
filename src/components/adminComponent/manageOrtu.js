@@ -197,11 +197,11 @@ class ManageMurid extends Component {
 
     render() {
 
-        console.log(this.props.getData.dataParent[3]);
+        console.log(this.props.getData.dataParent);
 
         return (
             <div>
-                <div className='h4 '>Data Orang Tua</div>
+                <div className='h4 p-3'>Data Orang Tua</div>
                 <table className="shadow rounded p-5" >
                     <thead className='border p-1'>
                         <tr>

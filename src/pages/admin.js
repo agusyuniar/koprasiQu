@@ -24,15 +24,6 @@ class LoginPage extends Component {
                         <div className='p-3 rounded' style={{ backgroundColor: 'rgba(255, 255, 255, .8)' }}>
                             <div className=''>
                                 <div className='border rounded p-3 m-2'>
-                                    {/* <ButtonGroup
-                                        orientation="horizontal"
-                                        color="light"
-                                        size='small'
-                                        variant='contained'
-                                    >
-                                        <Button onClick={() => this.setState({ showParent: !this.state.showParent })} style={{ textTransform: 'none', backgroundColor: '#cfd186' }}>Manage Orangtua</Button>
-                                        <Button onClick={() => this.setState({ showProduct: !this.state.showProduct })} style={{ textTransform: 'none', backgroundColor: '#cfd186' }}>Manage Product</Button>
-                                    </ButtonGroup> */}
                                 <div>
                                     <Nav tabs>
                                         <NavItem className='text-center'>

@@ -1,221 +1,287 @@
 import React, { Component } from 'react';
 import { connect } from "react-redux";
-import CheckCircleOutlineRoundedIcon from '@material-ui/icons/CheckCircleOutlineRounded';
-import ErrorOutlineOutlinedIcon from '@material-ui/icons/ErrorOutlineOutlined';
-import ExpansionPanel from '@material-ui/core/ExpansionPanel';
-import ExpansionPanelSummary from '@material-ui/core/ExpansionPanelSummary';
-import ExpansionPanelDetails from '@material-ui/core/ExpansionPanelDetails';
-import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
+import { Button, Modal, ModalHeader, ModalBody, ModalFooter, CustomInput  } from 'reactstrap';
 import { API_URL_1 } from "../../helpers/apiurl";
-import { getUserOrtu, inputEditText, submitEdit } from "../../redux/action";
+import { getProduct, inputEditText, submitEdit, addProduct } from "../../redux/action";
+import Axios from 'axios';
 
 
 
 class ManageMurid extends Component {
     state = {
-        selectedID: 0
+        selectedID: 0,
+        openModal: false,
+        openModalIMG: false,
+        toggleNested:false,
+        dataimage:[]
     }
 
     componentDidMount() {
-        this.getInitialDataOrtu()
+        this.getInitialDataProduct()
     }
-    getInitialDataOrtu = () => {
-        this.props.getUserOrtu()
+    getInitialDataProduct = () => {
+        this.props.getProduct()
+    }
+    editImageById=(img)=>{
+        console.log(this.state.selectedID);
+        console.log(img);
+        
+        // return Axios.put(API_URL_1+`product/editimageid/${this.state.selectedID}`,{
+        //     img_path:
+        // })
+        // .then(res=>{
+        //     console.log(res.data);
+        //     this.setState({dataimage:res.data})
+        //     console.log(this.state.dataimage);
+        // })
+        // .res(err=>{
+        //     console.log(err);
+            
+        // })
+    }
+
+    imageProductName = (e) => {
+        console.log(e.target.files)
+        if(e.target.files[0]) {
+          this.setState({ dataimage: e.target.files })
+        } else {
+          this.setState({ dataimage: null })
+        }
+    }
+
+    onBtnPressAddProduct=()=>{
+        // this.props.addProduct(this.props.adminEdit)
+        var formData = new FormData() 
+        var options = {
+            headers: {
+                'Content-Type': 'multipart/form-data'
+            }
+        }
+        for(var i = 0; i<this.state.dataimage.length; i++) {
+            formData.append('image', this.state.dataimage[i])
+        }
+        Axios.post(API_URL_1+`/product/addProduct`,this.props.adminEdit)
+        .then(res=>{console.log('sukses',res.data.results.insertId)
+            var data = {
+                product_id:res.data.results.insertId
+            }
+            
+            formData.append('data', JSON.stringify(data))
+            Axios.post(API_URL_1+`/product/addProductImage`,formData,options)
+            .then(res=>{
+                console.log('oke bisa',res);
+                this.getInitialDataProduct();
+            })
+            // window.location.reload()
+            .catch(err=>{console.log('gagal1',err)
+            })
+        })
+        .catch(err=>{console.log('gagal2',err)
+        })
+    }
+
+    onDeleteBtnPress=(id)=>{
+        Axios.delete(API_URL_1+`/product/deleteImageID/${id}`)
+        .then(res=>{
+            console.log(res);
+            this.getInitialDataProduct()
+        })
+        .catch(err=>{
+            console.log(err);
+            
+        })
     }
 
     renderData = () => {
-        return this.props.getData.dataParent.map((data, index) => {
-            //define role
-            console.log(data.alamat);
-            
-            if (data.role_id == 1) {
-                var role_idrender = 'SuperAdmin'
-            }
-            else if (data.role_id == 2) {
-                var role_idrender = 'AdminToko'
-            }
-            else if (data.role_id == 3) {
-                var role_idrender = 'AdminParent'
-            }
-            else if (data.role_id == 4) {
-                var role_idrender = 'UserStudent'
-            }
+        return this.props.getData.dataProduct.map((product, index) => {
+            var images = JSON.parse(product.images)
+            var variant = JSON.parse(product.variant)
 
-            if (data.verified) {
-                var verifiedrender = <CheckCircleOutlineRoundedIcon style={{ color: 'green' }} />
-            } else {
-                var verifiedrender = <ErrorOutlineOutlinedIcon style={{ color: 'red' }} />
-            }
-            var anak = JSON.parse(data.anak)
-            console.log(anak);
+            if (this.state.selectedID == product.id) {
 
-            if (this.state.selectedID == data.id) {
                 return (
-                    <tr>
-                        <td className='border p-1' scope="row" >{index + 1}</td>
-                        <td className='border p-1'>
-                            <input
-                                // onChange={(val) => this.props.inputEditText('id', val.target.value)}
-                                type="text"
-                                className="form-control" placeholder={data.id} /></td>
-                        <td className='border p-1'>
-                            <input
-                                value={this.props.adminEdit.verified}
-                                onChange={(val) => this.props.inputEditText('verified', val.target.value)}
-                                type="text"
-                                className="form-control" placeholder={data.verified} />
+                    <tr scope="row" key={index}>
+                        <td className='border'>{index + 1}</td>
+                        <td className='border'>{product.nama_product}</td>
+                        <td className='border'>{product.deskripsi}</td>
+                        <td className='border'>
+                            <div>
+                                            {()=>this.getImageById(product.id)}
+                                <Button size='sm' color="danger" onClick={() => this.setState({ openModalIMG: !this.state.openModalIMG })}>Manage Image</Button>
+
+                                <Modal isOpen={this.state.openModalIMG} toggle={() => this.setState({ openModalIMG: !this.state.openModalIMG })} className='container-flex'>
+                                    <ModalHeader toggle={() => this.setState({ openModal: !this.state.openModal })}>Manage Image Product</ModalHeader>
+                                    <ModalBody>
+                                        <div className='row'>
+                                            {
+                                                images.map((item) => {
+                                                    if (!item.img) {
+                                                        return 'Gambar produk belum ada'
+                                                    }
+                                                    return(
+                                                        <div className='m-1 border rounded'>
+                                                            <td>
+                                                            <tr><img src={API_URL_1 + item.img} width='150px' /></tr>
+                                                            <tr>
+                                                                {/* <button onClick={()=>this.setState({toggleNested:!this.state.toggleNested})}>Tambah</button> */}
+                                                                <button onClick={()=>this.onDeleteBtnPress(item.id)}>Hapus</button>
+                                                            </tr>
+                                                            </td>
+                                                        </div>
+                                                        )
+                                                })
+                                            }
+                                        </div>
+                                        <br />
+                                        {/* <Button color="success" onClick={this.setState({toggleNested:!this.state.toggleNested})}>Show Nested Modal</Button> */}
+                                        <Modal isOpen={this.state.toggleNested} toggle={() => this.setState({ toggleNested: !this.state.toggleNested })} >
+                                            <ModalHeader>Nested Modal title</ModalHeader>
+                                            <ModalBody>
+                                                <input type='file' placeholder='Tambah gambar' onChange={this.onEditImageChange} />
+                                            </ModalBody>
+                                            <ModalFooter>
+                                                <Button color="primary" onClick={() => this.editImageById('123')}>Done</Button>
+                                                <Button color="secondary" onClick>All Done</Button>
+                                            </ModalFooter>
+                                        </Modal>
+                                    </ModalBody>
+                                    <ModalFooter>
+                                        <Button color="primary" onClick={() => this.setState({ openModal: !this.state.openModal })}>Simpan</Button>{' '}
+                                        <Button color="secondary" onClick={() => this.setState({ openModal: !this.state.openModal })}>Batal</Button>
+                                    </ModalFooter>
+                                </Modal>
+                            </div>
                         </td>
-                        <td className='border p-1'>
-                            <input
-                                value={this.props.adminEdit.username}
-                                onChange={(val) => this.props.inputEditText('username', val.target.value)}
-                                type="text"
-                                className="form-control" placeholder={data.username} /></td>
-                        <td className='border p-1'>
-                            <input
-                                value={this.props.adminEdit.firstname}
-                                onChange={(val) => this.props.inputEditText('firstname', val.target.value)}
-                                type="text"
-                                className="form-control" placeholder={data.firstname} /></td>
-                        <td className='border p-1'>
-                            <input
-                                value={this.props.adminEdit.lastname}
-                                onChange={(val) => this.props.inputEditText('lastname', val.target.value)}
-                                type="text"
-                                className="form-control" placeholder={data.lastname} /></td>
-                        <td className='border p-1'>
-                            <input
-                                value={this.props.adminEdit.alamat}
-                                onChange={(val) => this.props.inputEditText('alamat', val.target.value)}
-                                type="text"
-                                className="form-control" placeholder={data.alamat} /></td>
-                        <td className='border p-1'>
-                            <input
-                                value={this.props.adminEdit.email}
-                                onChange={(val) => this.props.inputEditText('email', val.target.value)}
-                                type="text"
-                                className="form-control" placeholder={data.email} /></td>
-                        <td className='border p-1'>
-                            <input
-                                value={this.props.adminEdit.role_id}
-                                onChange={(val) => this.props.inputEditText('role_id', val.target.value)}
-                                type="text"
-                                className="form-control" placeholder={data.role_id} /></td>
-                        <td className='border p-1'>
-                            <input
-                                value={this.props.adminEdit.profil_img}
-                                onChange={(val) => this.props.inputEditText('profil_img', val.target.value)}
-                                type="text"
-                                className="form-control" placeholder={data.profil_img} /></td>
-                        <td className='border p-1'><input
-                            // value={this.props.regisForm.confPassword}
-                            // onChange={(val) => this.props.inputText('username', val.target.value)}
-                            type="text"
-                            className="form-control" placeholder='Edit di Manage Siswa' disabled /></td>
-                        <td className='border p-1'>
-                            <button onClick={() => this.setState({ selectedID: 0 })} style={{ backgroundColor: 'red' }}>Cancel</button>
-                            <button onClick={this.onBtnEditSavePress} style={{ backgroundColor: 'green' }}>Save</button>
+                        <td className='border'>
+                            asd
+                        </td>
+                        <td className='border'>
+                            asd
+                        </td>
+                        <td className='border'>
+                            asd
+                        </td>
+                        <td>
+                            <button onClick={()=>this.setState({selectedID:0})}>Cancel</button>
+                            <button>Save</button>
                         </td>
                     </tr>
                 )
             }
             return (
-                <tr>
-                    <td className='border p-1' scope="row">{index + 1}</td>
-                    <td className='border p-1'>{data.id}</td>
-                    <td className='border p-1'>{verifiedrender}</td>
-                    <td className='border p-1'>{data.username}</td>
-                    <td className='border p-1'>{data.firstname}</td>
-                    <td className='border p-1'>{data.lastname}</td>
-                    <td className='border p-1'>{data.alamat}</td>
-                    <td className='border p-1'>{data.email}</td>
-                    <td className='border p-1'>{data.role_id}</td>
-                    <td className='border p-1'><img src={API_URL_1 + data.profil_img} height='100' /></td>
-                    <td className='border p-1'>{
-                        anak.map((list) => {
-                            if (!list.nim) {
-                                return 'Belum terhubung'
-                            }
-                            return (
-                                <div className='border p-1'>
-                                    <ExpansionPanel >
-                                        <ExpansionPanelSummary
-                                            expandIcon={<ExpandMoreIcon fontSize='small' />}
-                                            // aria-controls="panel1a-content"
-                                            id="panel1a-header"
-                                        >
-                                            <p className='p'>{list.nama}</p>
-                                        </ExpansionPanelSummary>
-                                        <ExpansionPanelDetails>
-                                            <table className=''>
-                                                <tr className='border'>
-                                                    <td className='border'>NIM</td>
-                                                    <td className='border'>Alamat</td>
-                                                    <td className='border'>Saldo</td>
-                                                    <td className='border'>Avatar</td>
-                                                </tr>
-                                                <tr className='border'>
-                                                    <td className='border'>{list.nim}</td>
-                                                    <td className='border'>{list.alamat}</td>
-                                                    <td className='border'>Rp {list.saldo.toLocaleString()}</td>
-                                                    <td className='border'><img src={API_URL_1 + list.profil_img} width='80px' /></td>
-                                                </tr>
-                                            </table>
-                                        </ExpansionPanelDetails>
-                                    </ExpansionPanel>
-                                </div>
-
-                            )
-                        })
-                    }
+                <tr scope="row" key={index}>
+                    <td className='border'>{index + 1}</td>
+                    <td className='border'>{product.nama_product}</td>
+                    <td className='border'>{product.deskripsi}</td>
+                    <td className='border'>
+                        {
+                            images.map((item) => {
+                                if (!item.img) {
+                                    return 'Gambar produk belum ada'
+                                }
+                                return <img src={API_URL_1 + item.img} width='70px' />
+                            })
+                        }
                     </td>
-                    <td className='border p-1'>
-                        <button onClick={() => this.setState({ selectedID: data.id })}>Edit</button>
-                        <button>Delete</button>
+                    <td className='border'>
+                        {
+                            variant.map((item) => {
+                                return <tr>{item.size}</tr>
+                            })
+                        }
+                    </td>
+                    <td className='border'>
+                        {
+                            variant.map((item) => {
+                                return <tr>{item.stock}</tr>
+                            })
+                            
+                        }
+                    </td>
+                    <td className='border'>
+                        {
+                            variant.map((item) => {
+                                if (!item.harga) {
+                                    return ''
+                                }
+                                return <tr>Rp {item.harga.toLocaleString()}</tr>
+                            })
+                        }
+                    </td>
+                    <td>
+                        <button onClick={()=>this.setState({selectedID:product.id})}>Edit</button>
+                        <button onClick={()=>this.setState({selectedID:0})}>Cancel</button>
                     </td>
                 </tr>
             )
         })
     }
 
-    onBtnEditSavePress = () => {
-        var { verified, username, firstname, lastname, alamat, email, role_id, profil_img } = this.props.adminEdit
-        // if(verified||username||firstname||lastname||alamat||email||role_id||profil_img)
-        this.props.adminEdit.id = this.state.selectedID
-        this.props.submitEdit(this.props.adminEdit)
-        this.state.selectedID = 0
-        this.getInitialDataOrtu()
-        this.renderData()
-    }
-
-    showMurid = (id) => {
-        console.log(id);
-        return <a>{id}</a>
-    }
-
-
     render() {
 
-        console.log(this.props.getData.dataParent[3]);
+        console.log(this.props.adminEdit);
+        console.log(this.state.dataimage);
+        
 
         return (
             <div>
-                <div className='h4 '>Data Product Koperasi</div>
+                {/* -----------------------Modal Add Prdct--------------------------- */}
+                <div>
+                    <Modal isOpen={this.state.openModal} toggle={() => this.setState({ openModal: !this.state.openModal })} className>
+                        <ModalHeader toggle={() => this.setState({ openModal: !this.state.openModal })}>Modal title</ModalHeader>
+                        <ModalBody>
+                        <span className="input-group pt-2 pb-2">Nama Item</span>
+                        <div className='m-auto'>
+                            <div className="input-group input-group-sm ">
+                                <input value={this.props.adminEdit.nama_product} onChange={(val)=>this.props.inputEditText('nama_product', val.target.value)} type="text" aria-label="Address" className="form-control" placeholder='Nama Produk yang ditampilkan' />
+                            </div>
+                        </div>
+                        <span className="input-group pt-2 pb-2">Deskripsi</span>
+                        <div className='m-auto'>
+                            <div className="input-group input-group-sm ">
+                                <input value={this.props.adminEdit.deskripsi} onChange={(val)=>this.props.inputEditText('deskripsi', val.target.value)} type="text" aria-label="Address" className="form-control" placeholder='Deskripsi produk' />
+                            </div>
+                        </div>
+                        <span className="input-group pt-2 pb-2">Gambar Produk</span>
+                        <div className='m-auto'>
+                            <div className="input-group input-group-sm ">
+                                <CustomInput id="editImagePost" type="file" label='Pilih gambar untuk produk' onChange={this.imageProductName} multiple />
+                            </div>
+                        </div>
+                        <span className="input-group pt-2 pb-2">Deskripsi</span>
+                        <div className='m-auto'>
+                            <div className="input-group input-group-sm ">
+
+                            </div>
+                        </div>
+                        </ModalBody>
+                        <ModalFooter>
+                            <Button color="primary" onClick={this.onBtnPressAddProduct}>Simpan</Button>{' '}
+                            <Button color="secondary" onClick={() => this.setState({ openModal: !this.state.openModal })}>Batal</Button>
+                        </ModalFooter>
+                    </Modal>
+                </div>
+                {/* -----------------------End Modal Add Prdct--------------------------- */}
+                <div className='h4 p-3'>Data Product Koperasi</div>
+                <Button size='sm' color="danger" onClick={() => this.setState({ openModal: !this.state.openModal })}>Add Product</Button>
                 <table className="shadow rounded p-5" >
                     <thead className='border p-1'>
                         <tr>
                             <th className='border' scope="col">No</th>
-                            <th className='border' scope="col">ID</th>
-                            <th className='border' scope="col">Verified</th>
-                            <th className='border' scope="col">Username</th>
-                            <th className='border' scope="col">Nama Depan</th>
-                            <th className='border' scope="col">Nama Belakang</th>
-                            <th className='border' scope="col">Alamat</th>
-                            <th className='border' scope="col">Email</th>
-                            <th className='border' scope="col">Role</th>
-                            <th className='border' scope="col">Avatar</th>
-                            <th className='border' scope="col">Anak</th>
-                            <th className='border' scope="col">...</th>
+                            <th className='border' scope="col">Nama</th>
+                            <th className='border' scope="col">Deskripsi</th>
+                            <th className='border' scope="col">Gambar</th>
+                            {/* <th className='border' scope="col"> */}
+                            {/* <th className='' scope="col"><tr>Varian</tr></th>
+                                <tr>
+                                    <th>Ukuran</th>
+                                    <th>Stok</th>
+                                    <th>Harga</th>
+                                </tr>    
+                            </th> */}
+                            <th className='border' scope="col">Ukuran</th>
+                            <th className='border' scope="col">Stok</th>
+                            <th className='border' scope="col">Harga</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -230,4 +296,4 @@ class ManageMurid extends Component {
 const sambungin = ({ getData, adminEdit }) => {
     return { getData, adminEdit }
 }
-export default connect(sambungin, { getUserOrtu, inputEditText, submitEdit })(ManageMurid);
+export default connect(sambungin, { getProduct, inputEditText, submitEdit, addProduct })(ManageMurid);

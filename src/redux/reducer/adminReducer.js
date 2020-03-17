@@ -19,7 +19,7 @@ const INITIAL_STATE = {
 
 export default (state = INITIAL_STATE, action) => {
     switch (action.type) {
-        case INPUT_EDIT_TEXT:
+        case INPUT_EDIT_TEXT:           
             return { ...state, [action.payload.prop]: action.payload.value }
         case EDIT_FAILED:
             return { ...state}

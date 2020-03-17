@@ -28,7 +28,8 @@ export const DETAIL_NIM_SELECT = 'DETAIL_NIM_SELECT'
 export const GET_PRODUCT_SUCCESS = 'GET_PRODUCT_SUCCESS'
 
 //getDataadmin
-export const GET_SUCCESS = 'GET_SUCCESS'
+export const GET_PARENT_SUCCESS = 'GET_PARENT_SUCCESS'
+// export const GET_PRODUCT_SUCCESS = 'GET_PRODUCT_SUCCESS'
 
 //adminpage
 export const INPUT_EDIT_TEXT = 'INPUT_EDIT_TEXT'

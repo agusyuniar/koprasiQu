@@ -1,15 +1,24 @@
-import { GET_SUCCESS } from "../action/types";
+import { 
+    GET_PRODUCT_SUCCESS,
+    GET_PARENT_SUCCESS } from "../action/types";
+
 
 const INITIAL_STATE = {
     dataParent : [],
-    dataMurid : []
+    dataMurid : [],
+    dataProduct : []
 }
 
 export default (state=INITIAL_STATE,action)=>{
     switch (action.type) {
-        case GET_SUCCESS : 
+        
+        case GET_PARENT_SUCCESS : 
+        return {
+            ...state,dataParent:action.payload,   
+        }
+        case GET_PRODUCT_SUCCESS : 
             return {
-                dataParent:action.payload
+                ...state,dataProduct:action.payload,
             }
         default :
             return state

@@ -118,37 +118,37 @@ class RegisterForm extends Component {
                         <div className='h5 input-group pt-5 pb-2'>Data Personal</div>
                         <span className="input-group pb-2">Nama Lengkap </span>
                         <div className='row m-auto'>
-                            <div class="input-group input-group-sm ">
-                                <div class="input-group-prepend">
-                                    <span class="input-group-text">Nama Depan </span>
+                            <div className="input-group input-group-sm ">
+                                <div className="input-group-prepend">
+                                    <span className="input-group-text">Nama Depan </span>
                                 </div>
                                 <input
                                     value={this.props.regisForm.firstname}
                                     onChange={(val) => this.props.inputText('firstname', val.target.value)}
                                     type="text"
-                                    class="form-control"
+                                    className="form-control"
                                     placeholder='  nama depan  ' />
-                                <div class="input-group-prepend">
+                                <div className="input-group-prepend">
                                     <span className="input-group-text" >Belakang</span>
                                 </div>
-                                <input value={this.props.regisForm.lastname} onChange={(val) => this.props.inputText('lastname', val.target.value)} type="text" aria-label="Last name" class="form-control" placeholder='  nama belakang' />
+                                <input value={this.props.regisForm.lastname} onChange={(val) => this.props.inputText('lastname', val.target.value)} type="text" aria-label="Last name" className="form-control" placeholder='  nama belakang' />
                             </div>
                         </div>
                         <span className="input-group pt-2 pb-2">Alamat</span>
                         <div className='m-auto'>
-                            <div class="input-group input-group-sm ">
-                                <input value={this.props.regisForm.alamat} onChange={(val) => this.props.inputText('alamat', val.target.value)} type="text" aria-label="Address" class="form-control" placeholder='  alamat lengkap sesuai domisili  ' />
+                            <div className="input-group input-group-sm ">
+                                <input value={this.props.regisForm.alamat} onChange={(val) => this.props.inputText('alamat', val.target.value)} type="text" aria-label="Address" className="form-control" placeholder='  alamat lengkap sesuai domisili  ' />
                             </div>
                         </div>
                         <span className="input-group mt-2 pb-2" onDragEnter>
                             Email
                     </span>
                         <div className='m-auto'>
-                            <div class="input-group input-group-sm ">
+                            <div className="input-group input-group-sm ">
                                 <input
                                     value={this.props.regisForm.email}
                                     onChange={(val) => this.props.inputText('email', val.target.value)}
-                                    type="text" aria-label="email" class="form-control" placeholder='  email aktif dan sesuai dengan email murid terdaftar  ' />
+                                    type="text" aria-label="email" className="form-control" placeholder='  email aktif dan sesuai dengan email murid terdaftar  ' />
                             </div>
                         </div>
 
@@ -157,7 +157,7 @@ class RegisterForm extends Component {
                         <div className='h5 input-group pb-2'>Data Akun</div>
                         <span className="input-group m-auto pb-2">Username</span>
                         <div className=' m-auto '>
-                            <div class="input-group input-group-sm ">
+                            <div className="input-group input-group-sm ">
                                 <input
                                     value={this.props.regisForm.username}
                                     onChange={(val) => this.props.inputText('username', val.target.value)}
@@ -197,18 +197,18 @@ class RegisterForm extends Component {
                             Ulangi Password
                     </span>
                         <div className='m-auto '>
-                            <div class="input-group input-group-sm ">
+                            <div className="input-group input-group-sm ">
                                 <input
                                     value={this.props.regisForm.confPassword}
                                     onChange={(val) => this.props.inputText('confPassword', val.target.value)}
                                     type="password"
                                     aria-label="email"
-                                    class="form-control float-left col-7"
+                                    className="form-control float-left col-7"
                                     placeholder='  masukkan password' />
                             </div>
                         </div>
 
-                        <div class="mt-3 input-group-sm ">
+                        <div className="mt-3 input-group-sm ">
                             <Checkbox
                                 defaultChecked={this.props.regisForm.checked}
                                 onClick={this.props.checkUncheck}

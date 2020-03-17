@@ -45,3 +45,21 @@ export const submitEdit = (val) => {
         })
     }
 }
+
+export const addProduct = (val) => {
+    return (dispatch)=>{
+        var formData = new FormData()
+        formData.append('image',this.props.adminEdit.product_img) 
+        axios.post(API_URL_1+'/product/addProduct', this.props.adminEdit,formData
+        // {
+        //     nama_product:val.nama_product,
+        //     deskripsi:val.deskripsi,
+        //     img_path:val.product_img
+        // }
+        )
+        .then(res=>{console.log('sukses',res)
+        })
+        .catch(err=>{console.log('gagal',err)
+        })
+    }
+}
