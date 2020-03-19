@@ -24,7 +24,7 @@ export default (state = INITIAL_STATE, action) => {
         case EDIT_FAILED:
             return { ...state}
         case EDIT_SUCCESS:
-            return { INITIAL_STATE }
+            return { ...INITIAL_STATE }
         default: 
             return state
     }

@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { Link } from "react-router-dom";
 import { makeStyles } from '@material-ui/core/styles';
 import Card from '@material-ui/core/Card';
 import CardActionArea from '@material-ui/core/CardActionArea';
@@ -31,11 +32,11 @@ class CardProduct extends Component {
                 <Card 
                     style={{
                         backgroundImage: 'linear-gradient(-225deg, #E3FDF5 0%, #FFE6FA 100%)',
-                        // backgroundColor:'teal',
                         maxWidth: '20%', 
                         margin: 10 }}
                     className=''
                 >
+                    <Link to={`/details?id=${item.id}`}>
                     <CardActionArea>
                         <CardMedia
                             component="img"
@@ -45,6 +46,7 @@ class CardProduct extends Component {
                             title={item.nama_product}
                         />
                     </CardActionArea>
+                    </Link>
                         <CardContent>
                             <div className='pb-1 mb-1 border-bottom'>
                                 <a className='h6'>

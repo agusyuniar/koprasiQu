@@ -87,7 +87,7 @@ nav.turun{
     /* padding-top: 1% !important; */
 }
 .navstore nav.turun{
-    background-color: rgba(0, 191, 191, 0.523) !important;
+    background-color: rgb(178, 240, 240) !important;
     /* box-shadow: 0 10px 5px rgba(0, 99, 99, 0.7) !important; */
     height: 40px !important;
     transition: .5s;

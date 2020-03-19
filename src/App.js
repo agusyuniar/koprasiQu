@@ -11,6 +11,7 @@ import RegSuccess from './pages/regSuccess';
 import verify from './pages/verify';
 import detailMurid from './pages/detailMurid';
 import BelanjaHome from './pages/belanjaHome';
+import detailProduct from "./pages/detailProduct";
 import AdminPage from './pages/admin';
 
 /*________________only_comp________________*/
@@ -22,26 +23,10 @@ import Murid from './components/loginMurid'
 import Cobacoba from './components/tes'
 
 import { KeepLogin } from "./redux/action";
+import cart from './pages/cart';
 
 
 class App extends Component {
-  // componentDidMount(){    
-  //   let username = localStorage.getItem('username')
-  //   if(username){
-  //       console.log(username)
-  //     Axios.get(`http://localhost:2000/users?username=${username}`)
-  //     .then((res)=>{
-  //       console.log(res)
-  //       this.props.login(res.data[0])
-  //     })
-  //     .catch((err)=>{
-  //       console.log(err)
-  //     })
-  //   }
-
-  //   // this.props.keepLogin()
-  // }
-
   componentDidMount() {
     var token = localStorage.getItem('ptoken')
     console.log(token)
@@ -51,10 +36,6 @@ class App extends Component {
   render(){
     return(
       <div>
-        {/* <Iklan/> */}
-        {/* <NavbarComp /> */}
-        {/* <NavbarHom /> */}
-        {/* <Shortcut /> */}
         <Navbar/>
         <Switch>
           <Route path='/' component={Homepage} exact/>
@@ -67,7 +48,10 @@ class App extends Component {
           <Route path='/registerSuccess' component={RegSuccess}/>      
           <Route path='/verify' component={verify}/>      
           <Route path='/kopshop' component={BelanjaHome}/>      
+          <Route path='/details' component={detailProduct}/>      
           <Route path='/admin' component={AdminPage}/>      
+          <Route path='/mycart' component={cart}/>      
+          
           {/* <Route path='/detail' component={MovieDetail} />
           <Route path='/signup' component={Register} />      
           <Route path='/admin' component={Admin} />      

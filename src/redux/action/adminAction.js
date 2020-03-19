@@ -46,17 +46,50 @@ export const submitEdit = (val) => {
     }
 }
 
-export const addProduct = (val) => {
+/*lgsg di page*/
+export const addProduct = () => {
     return (dispatch)=>{
-        var formData = new FormData()
-        formData.append('image',this.props.adminEdit.product_img) 
-        axios.post(API_URL_1+'/product/addProduct', this.props.adminEdit,formData
-        // {
-        //     nama_product:val.nama_product,
-        //     deskripsi:val.deskripsi,
-        //     img_path:val.product_img
-        // }
-        )
+        // var formData = new FormData()
+        // formData.append('image',this.props.adminEdit.product_img) 
+        // axios.post(API_URL_1+'/product/addProduct', this.props.adminEdit
+        // // {
+        // //     nama_product:val.nama_product,
+        // //     deskripsi:val.deskripsi,
+        // //     img_path:val.product_img
+        // // }
+        // )
+        // .then(res=>{console.log('sukses',res)
+        // })
+        // .catch(err=>{console.log('gagal',err)
+        // })
+        dispatch({
+            type: EDIT_SUCCESS
+        })
+    }
+}
+export const editProduct = (val) => {
+    return (dispatch) => {
+        axios.put(API_URL_1 + `/product/editProduct`,{
+            id:val.id,
+            nama_product:val.nama_product,
+            deskripsi:val.deskripsi,
+            stock:val.stock,
+            harga:val.harga
+        })
+        .then(res => {
+            console.log('sukses', res)
+            dispatch({
+                type:EDIT_SUCCESS
+            })
+        })
+        .catch(err => {
+            console.log('gagal', err)
+        })
+    }
+}
+export const deleteProduct = (id) => {
+    return (dispatch)=>{
+        axios.delete(API_URL_1+`/product/deleteProduct/${id}`)
         .then(res=>{console.log('sukses',res)
         })
         .catch(err=>{console.log('gagal',err)

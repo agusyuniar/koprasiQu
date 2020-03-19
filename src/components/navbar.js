@@ -18,9 +18,10 @@ import ShoppingBasketIcon from '@material-ui/icons/ShoppingBasket';
 import StorefrontIcon from '@material-ui/icons/Storefront';
 import { logoutUser } from "../redux/action";
 
-
 class Navbartop extends Component {
-
+    state={
+        openPopOver:false
+    }
 
     renderLoading = () => {
         if (!this.props.user.id) {
@@ -35,7 +36,8 @@ class Navbartop extends Component {
 
     render() {
         console.log(this.props.user.id);
-
+        console.log(this.state.openPopOver);
+        
         return (
             <div className='sticky-top'>
                 <Navbar expand="md" className='navbarsaya' >
@@ -79,7 +81,13 @@ class Navbartop extends Component {
                                     </div>
                                     <div className='kotaklogin'>
                                         {this.renderLoading()}
-                                        <ShoppingBasketIcon className='border-right pr-1' style={{ color: 'rgb(3, 86, 86)', margin: '0 5px 5px 5px' }} />
+                                        <Link to='/mycart'>
+                                        <ShoppingBasketIcon 
+                                            className='border-right pr-1' 
+                                            style={{ color: 'rgb(3, 86, 86)', margin: '0 5px 5px 5px' }} 
+                                        />
+                                        </Link>
+
                                         <NavbarText className='L h6 mt-2 ml-1'>Halo, &nbsp;</NavbarText>
                                         <Link to='/profile' className='L mr-2'>
                                             <span className='h6'>
