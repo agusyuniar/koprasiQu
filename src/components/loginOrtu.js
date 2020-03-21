@@ -3,16 +3,12 @@ import { Link, Redirect } from 'react-router-dom';
 import { connect } from "react-redux";
 // import { Input, Button } from '@fluentui/react';
 
-import { InputGroup, InputGroupAddon, InputGroupText, Input } from 'reactstrap';
 import { Button } from '@material-ui/core';
 import ButtonGroup from '@material-ui/core/ButtonGroup';
-import { FormControl, InputLabel, OutlinedInput, InputAdornment, IconButton, Grid, TextField } from '@material-ui/core';
 import VisibilityIcon from '@material-ui/icons/Visibility';
 import VisibilityOffIcon from '@material-ui/icons/VisibilityOff';
-import AccountCircle from '@material-ui/icons/AccountCircle';
 import VpnKeyRoundedIcon from '@material-ui/icons/VpnKeyRounded';
 import PersonRoundedIcon from '@material-ui/icons/PersonRounded';
-import Tooltip from '@material-ui/core/Tooltip';
 import './component.css';
 import { Transition, animated } from 'react-spring/renderprops';
 import { inputUsername, inputPassword, loginUserParent, hideUnhide, KeepLogin } from "../redux/action";

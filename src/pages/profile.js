@@ -4,7 +4,6 @@ import { Redirect } from 'react-router-dom';
 import axios from 'axios'
 import { API_URL_1 } from "../helpers/apiurl";
 import AccountCircleTwoToneIcon from '@material-ui/icons/AccountCircleTwoTone';
-import { Table, Button } from "@material-ui/core";
 import CheckCircleOutlineRoundedIcon from '@material-ui/icons/CheckCircleOutlineRounded';
 import ErrorOutlineOutlinedIcon from '@material-ui/icons/ErrorOutlineOutlined';
 import { Link } from "react-router-dom";
@@ -12,6 +11,8 @@ import Tooltip from '@material-ui/core/Tooltip';
 import LinearProgress from '@material-ui/core/LinearProgress';
 import { Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap';
 import { CustomInput } from 'reactstrap';
+import HistoriTransaksi from "../components/historiTransaksiParent";
+import { Table, Button, Divider, ButtonGroup } from "@material-ui/core";
 import { inputUsername, 
         inputPassword, 
         loginUserParent, 
@@ -25,7 +26,8 @@ class ProfilePage extends Component {
         editImageName: 'Pilih gambar...',
         editImageFile: undefined,
         PP: this.props.user.profil_img,
-        selectedMurid: null
+        selectedMurid: null,
+        showHistori:false
     }
 
 
@@ -194,6 +196,9 @@ class ProfilePage extends Component {
         }
         else if (!this.props.user.id) {
             return <LinearProgress />
+        }else if(this.props.user.username==='admin'){
+            this.state.redirect = true
+            return <Redirect to="/admin" />
         }
         if (!this.state.PP) {
             this.getProfileData()
@@ -231,8 +236,10 @@ class ProfilePage extends Component {
                                         style={{ color: 'teal' }}
                                     >
                                         Ubah Foto
-                                        </Button>
+                                    </Button>
                                     
+                                    
+
                                     {/*--------------- modals -------------------------------------------------------------------------------------------------*/}
                                     <Modal isOpen={this.state.openModalEditPP} className=''>
                                         <ModalHeader >Ubah Foto</ModalHeader>
@@ -249,7 +256,25 @@ class ProfilePage extends Component {
                                     </Modal>
                                     {/* --------------end modal---------------------------------------------------------------------------------------------- */}
                                 </div>
+
+                                <div className='margin-auto text-center border rounded p-2 m-3  shadow '>
+                                <ButtonGroup
+                                    orientation="vertical"
+                                    color="primary"
+                                    size='small'
+                                >
+                                    <Button onClick={()=>this.setState({showHistori:!this.state.showHistori})}>Daftar Transaksi</Button>
+                                    <Button >Histori Belanja</Button>
+                                    <Button>Adm. Sekolah</Button>
+                                </ButtonGroup>
+                                </div>
+
+
+
                             </div>
+
+                            
+
                             <div className='col-9'>
 
                                 {/* data pribadi */}
@@ -296,6 +321,12 @@ class ProfilePage extends Component {
                                         </tr>
                                     </tbody>
                                 </table>
+
+                                <div>
+                                    {
+                                        this.state.showHistori ? <HistoriTransaksi /> : null
+                                    }
+                                </div>
 
                                 {/* data murid */}
                                 <div className='h5 mt-5 p-2 mb-5 border rounded'>

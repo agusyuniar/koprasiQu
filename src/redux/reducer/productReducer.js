@@ -1,10 +1,12 @@
 import { 
-    GET_PRODUCT_SUCCESS, GET_PRODUCT_DETAIL_SUCCESS 
+    GET_PRODUCT_SUCCESS, GET_PRODUCT_DETAIL_SUCCESS, GET_CART_SUCCESS, GET_TRANSACTION_SUCCESS
 } from "../action/types";
 
 const INITIAL_STATE = {
     listProduct:[],
-    productDetail:''
+    productDetail:'',
+    listCart:[],
+    listTransaction:[]
 }
 
 export default (state=INITIAL_STATE, action) => {
@@ -15,6 +17,12 @@ export default (state=INITIAL_STATE, action) => {
         case GET_PRODUCT_DETAIL_SUCCESS : 
             console.log(action.payload);
             return {...state, productDetail:action.payload}
+        case GET_CART_SUCCESS : 
+            console.log(action.payload);
+            return {...state, listCart:action.payload}
+        case GET_TRANSACTION_SUCCESS : 
+            console.log(action.payload);
+            return {...state, listTransaction:action.payload}
         default:
             return state
     }

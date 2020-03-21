@@ -13,6 +13,8 @@ import detailMurid from './pages/detailMurid';
 import BelanjaHome from './pages/belanjaHome';
 import detailProduct from "./pages/detailProduct";
 import AdminPage from './pages/admin';
+import cart from './pages/cart';
+import checkOut from './pages/checkOut';
 
 /*________________only_comp________________*/
 import Loginpage from './pages/login'
@@ -22,8 +24,7 @@ import Ortu from './components/loginOrtu'
 import Murid from './components/loginMurid'
 import Cobacoba from './components/tes'
 
-import { KeepLogin } from "./redux/action";
-import cart from './pages/cart';
+import { KeepLogin, getCartbyParent } from "./redux/action";
 
 
 class App extends Component {
@@ -32,8 +33,10 @@ class App extends Component {
     console.log(token)
     this.props.KeepLogin(token)   
   }
-
+  
   render(){
+    
+    this.props.getCartbyParent(this.props.user.id)
     return(
       <div>
         <Navbar/>
@@ -51,6 +54,7 @@ class App extends Component {
           <Route path='/details' component={detailProduct}/>      
           <Route path='/admin' component={AdminPage}/>      
           <Route path='/mycart' component={cart}/>      
+          <Route path='/checkout' component={checkOut}/>      
           
           {/* <Route path='/detail' component={MovieDetail} />
           <Route path='/signup' component={Register} />      
@@ -68,5 +72,7 @@ class App extends Component {
     )
   }
 }
-
-export default connect (null, {KeepLogin}) (App);
+const sambungin=({user})=>{
+  return {user}
+}
+export default connect (sambungin, {KeepLogin,getCartbyParent}) (App);
