@@ -23,9 +23,13 @@ class HistoriTransaksi extends Component {
             return (
                 <tr key={index}>
                     <td>{index+1}</td>
+                    <td><strong>{item.transaction_id}</strong></td>
+                    <td><strong>{item.transaction_time}</strong></td>
                     <td>{item.nama_product}</td>
                     <td>{item.total}</td>
                     <td>Rp {item.harga.toLocaleString()}</td>
+                    <td>{item.id_murid}</td>
+                    <td>{item.paid===0 ? '  belum bayar  ' : '  lunas  '}</td>
                 </tr>
 
                
@@ -42,15 +46,17 @@ class HistoriTransaksi extends Component {
                 <div className='h5'>
                     Histori Transaksi
                 </div>
-                <div className='h6'> id : {this.state.transaction_id}</div>
-                <div className='h6'> tanggal transaksi : {this.state.transaction_time}</div>
                 <table className='text-center'>
                     <thead>
                         <tr>
-                            <td>No </td>
-                            <td>Nama Barang </td>
-                            <td>Kuantitas </td>
-                            <td>Harga </td>
+                            <td className='pr-1 pl-1'>No </td>
+                            <td className='pr-1 pl-1'>ID Transaksi</td>
+                            <td className='pr-1 pl-1'>Tanggal Transaksi</td>
+                            <td className='pr-1 pl-1'>Nama Barang </td>
+                            <td className='pr-1 pl-1'>Kuantitas </td>
+                            <td className='pr-1 pl-1'>Harga </td>
+                            <td className='pr-1 pl-1'>NIM Murid</td>
+                            <td className='pr-1 pl-1'>Status</td>
                         </tr>
                     </thead>
                     <tbody>

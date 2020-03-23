@@ -1,12 +1,20 @@
 import axios from "axios";
 import { API_URL_1 } from "../../helpers/apiurl";
-import {  INPUT_TEXT, ON_REGISTER_PARENT, CHEKCED_TERMS_REGISTER, REGISTER_FAILED, REGISTER_SUCCESS, HIDE_UNHIDE, LOGIN_SUCCESS } from "./types";
+import {  INPUT_ADD_MURID_TEXT, INPUT_TEXT, ON_REGISTER_PARENT, CHEKCED_TERMS_REGISTER, REGISTER_FAILED, REGISTER_SUCCESS, HIDE_UNHIDE, LOGIN_SUCCESS, REGISTER_MURID_SUCCESS, REGISTER_MURID_FAILED } from "./types";
 
 
 export const inputText = (prop, value) => {
     console.log(prop,value);
     return {
         type: INPUT_TEXT,
+        payload: {prop, value}
+    }
+}
+
+export const inputAddStudentText = (prop, value) => {
+    console.log(prop,value);
+    return {
+        type: INPUT_ADD_MURID_TEXT,
         payload: {prop, value}
     }
 }
@@ -94,5 +102,42 @@ export const verifyEmail = (token) => {
                     type: REGISTER_FAILED
                 })
             })
+    }
+}
+
+export const registerStudent = (val) => {
+    console.log('dari addAction: ',val);
+    return (dispatch)=>{
+        // dispatch({type:ON_REGISTER_PARENT})
+        axios.post(API_URL_1+'/user/studentRegister',{
+            nim: parseInt(val.nim),
+            firstname: val.firstname,
+            lastname:val.lastname,
+            alamat:val.alamat,
+            email_ortu:val.email_ortu,
+            password:val.password,
+        })
+        .then(res=>{
+            console.log('regis success');
+            dispatch({
+                type:REGISTER_MURID_SUCCESS
+            })
+        })
+        .catch(err=> {
+            console.log(err.response);
+            dispatch({
+                type: REGISTER_MURID_FAILED,
+                payload: err.response
+            })
+        })
+        if(val.nim&&val.firstname&&val.lastname&&val.alamat&&val.email_ortu&&val.password){
+            
+        }else{
+            console.log('regis gagal blm diisi');
+            dispatch({
+                type: REGISTER_FAILED,
+                payload: 'Semua form harus diisi'
+            })
+        }
     }
 }

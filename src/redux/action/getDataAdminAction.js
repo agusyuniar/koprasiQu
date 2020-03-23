@@ -1,6 +1,6 @@
 import axios from "axios";
 import { API_URL_1 } from "../../helpers/apiurl";
-import { GET_PRODUCT_SUCCESS, GET_PARENT_SUCCESS } from "./types";
+import { GET_PRODUCT_SUCCESS, GET_PARENT_SUCCESS, GET_STUDENT_SUCCESS } from "./types";
 
 export const getUserOrtu = () => {
     return (dispatch) =>{
@@ -25,6 +25,21 @@ export const getProduct = () => {
             console.log('allProduct: ',res.data);
             dispatch({
                 type : GET_PRODUCT_SUCCESS,
+                payload : res.data
+            })
+        })
+        .catch(err=>{console.log(err);
+        })
+    }
+}
+
+export const getStudent = () => {
+    return (dispatch) => {
+        axios.get(API_URL_1+'/user/student')
+        .then(res=>{
+            console.log('allstudent: ',res.data);
+            dispatch({
+                type : GET_STUDENT_SUCCESS,
                 payload : res.data
             })
         })

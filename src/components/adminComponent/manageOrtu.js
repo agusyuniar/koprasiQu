@@ -171,7 +171,7 @@ class ManageMurid extends Component {
                     </td>
                     <td className='border p-1'>
                         <button onClick={() => this.setState({ selectedID: data.id })}>Edit</button>
-                        <button>Delete</button>
+                        {/* <button>Delete</button> */}
                     </td>
                 </tr>
             )
@@ -184,6 +184,7 @@ class ManageMurid extends Component {
         this.props.adminEdit.id = this.state.selectedID
         this.props.submitEdit(this.props.adminEdit)
         this.state.selectedID = 0
+        this.getInitialDataOrtu()
         this.getInitialDataOrtu()
         this.renderData()
     }
@@ -222,6 +223,7 @@ class ManageMurid extends Component {
                     <tbody>
                         {this.renderData()}
                     </tbody>
+                    
                 </table>
             </div>
         );

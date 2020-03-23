@@ -15,6 +15,7 @@ const INITIAL_STATE = {
     // role_id: null,
     // profil_img:null,
     // error : null
+    
 }
 
 export default (state = INITIAL_STATE, action) => {

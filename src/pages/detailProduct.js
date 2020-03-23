@@ -96,11 +96,9 @@ class detailProduct extends Component {
         })
         .then(res=>{
             console.log('berhasil tambah cart');
-            
         })
         .catch(err=>{
-            console.log('gagal tambah cart');
-            
+            console.log('gagal tambah cart ortu');
         })
     }
 

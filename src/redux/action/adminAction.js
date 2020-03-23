@@ -2,8 +2,9 @@ import axios from "axios";
 import { API_URL_1 } from "../../helpers/apiurl";
 import {
     INPUT_EDIT_TEXT,
+    INPUT_ADD_MURID_TEXT,
     EDIT_SUCCESS,
-    EDIT_FAILED
+    EDIT_FAILED,
 } from "./types";
 
 
@@ -11,6 +12,13 @@ export const inputEditText = (prop, value) => {
     console.log('inEditTxt: ', prop, value);
     return {
         type: INPUT_EDIT_TEXT,
+        payload: { prop, value }
+    }
+}
+export const inputStudentText = (prop, value) => {
+    console.log('inEditTxt: ', prop, value);
+    return {
+        type: INPUT_ADD_MURID_TEXT,
         payload: { prop, value }
     }
 }
@@ -69,7 +77,7 @@ export const addProduct = () => {
 }
 export const editProduct = (val) => {
     return (dispatch) => {
-        axios.put(API_URL_1 + `/product/editProduct`,{
+        axios.post(API_URL_1 + `/product/editProduct`,{
             id:val.id,
             nama_product:val.nama_product,
             deskripsi:val.deskripsi,
@@ -93,6 +101,35 @@ export const deleteProduct = (id) => {
         .then(res=>{console.log('sukses',res)
         })
         .catch(err=>{console.log('gagal',err)
+        })
+    }
+}
+
+export const submitEditMurid = (value) => {
+    console.log('valSubmitEditmrd: ',value);
+    
+    return (dispatch) => {
+        axios.put(API_URL_1 + '/user/editstudent', {
+            id:value.id,
+            nim: value.nim,
+            firstname: value.firstname,
+            lastname: value.lastname,
+            alamat: value.alamat,
+            email_ortu: value.email_ortu,
+            profil_img: value.profil_img
+        })
+        .then(res=>{
+            console.log('edit passed',res);
+            dispatch({
+                type:EDIT_SUCCESS
+            })
+        })
+        .catch(err=> {
+            console.log(err.response.data.message);
+            dispatch({
+                type: EDIT_FAILED,
+                payload: err.response.data.message
+            })
         })
     }
 }

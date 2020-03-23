@@ -50,7 +50,7 @@ class LoginOrtu extends Component {
         console.log(this.props.user);
         console.log(this.props.loginForm);
 
-        if (this.props.user.id) {
+        if (this.props.user.username) {
             this.state.redirect = true
             return <Redirect to="/profile" />
         }
@@ -114,7 +114,6 @@ class LoginOrtu extends Component {
                             </div>
                             <div className="input-group mb-3 ">
                                 <input
-
                                     onKeyPress={(e) => this.keyPressAct(e)}
                                     type={this.props.loginForm.hidePassword
                                         ? 'password' /*kondisi true*/

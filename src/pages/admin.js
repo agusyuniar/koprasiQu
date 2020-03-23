@@ -6,6 +6,7 @@ import ButtonGroup from '@material-ui/core/ButtonGroup';
 import { TabContent, TabPane, Nav, NavItem, NavLink, Card, Button, CardTitle, CardText, Row, Col } from 'reactstrap';
 import DataOrtu from '../components/adminComponent/manageOrtu';
 import DataProduct from '../components/adminComponent/manageProduct';
+import DataMurid from '../components/adminComponent/manageMurid';
 
 class LoginPage extends Component {
     state = {
@@ -14,6 +15,9 @@ class LoginPage extends Component {
 
     render() {
 
+        if(this.props.user.username!== 'admin'){
+            return <Redirect to='/'/>
+        }
         console.log(this.state);
 
         return (
@@ -34,10 +38,18 @@ class LoginPage extends Component {
                                                 Manage Orang Tua
                                             </NavLink>
                                         </NavItem>  
-                                        <NavItem>
+                                        <NavItem className='text-center'>
                                             <NavLink
                                                 className={this.state.activeTab == 2 ? 'active btn-warning' : null}
                                                 onClick={() => this.setState({ activeTab: '2' })}
+                                            >
+                                                Manage Murid
+                                            </NavLink>
+                                        </NavItem>  
+                                        <NavItem>
+                                            <NavLink
+                                                className={this.state.activeTab == 3 ? 'active btn-warning' : null}
+                                                onClick={() => this.setState({ activeTab: '3' })}
                                             >
                                                 Manage Produk
                                             </NavLink>
@@ -52,6 +64,13 @@ class LoginPage extends Component {
                                             </Row>
                                         </TabPane>
                                         <TabPane tabId="2">
+                                            <Row>
+                                                <Col>
+                                                    <DataMurid />
+                                                </Col>
+                                            </Row>
+                                        </TabPane>
+                                        <TabPane tabId="3">
                                             <Row>
                                                 <Col>
                                                     <DataProduct />
@@ -72,7 +91,7 @@ class LoginPage extends Component {
 }
 
 
-const sambungin = ({ adminEdit }) => {
-    return { adminEdit }
+const sambungin = ({ user, adminEdit }) => {
+    return { user, adminEdit }
 }
 export default connect(sambungin)(LoginPage);

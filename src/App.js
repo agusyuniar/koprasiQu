@@ -15,6 +15,7 @@ import detailProduct from "./pages/detailProduct";
 import AdminPage from './pages/admin';
 import cart from './pages/cart';
 import checkOut from './pages/checkOut';
+import profileMurid from './pages/profileMurid';
 
 /*________________only_comp________________*/
 import Loginpage from './pages/login'
@@ -45,6 +46,7 @@ class App extends Component {
           <Route path='/login' component={Loginpage} />      
           <Route path='/parent' component={Ortu} />      
           <Route path='/student' component={Murid} />      
+          <Route path='/profileMurid' component={profileMurid} />      
           <Route path='/profile' component={Profile} />      
           <Route path='/detailMurid' component={detailMurid} />      
           <Route path='/register' component={Register} />      
