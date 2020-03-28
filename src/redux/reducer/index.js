@@ -8,6 +8,7 @@ import productReducer from "./productReducer";
 import getDataAdminReducer from "./getDataAdminReducer";
 import adminReducer from "./adminReducer";
 import addStudentReducer from "./addStudentReducer";
+import categoryReducer from "./categoryReducer";
 
 export default combineReducers ({
     user : userReducer,
@@ -18,5 +19,6 @@ export default combineReducers ({
     productReducer : productReducer,
     getData : getDataAdminReducer,
     adminEdit : adminReducer,
-    addStudent : addStudentReducer
+    addStudent : addStudentReducer,
+    categoryReducer : categoryReducer
 })

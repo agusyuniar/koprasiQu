@@ -93,6 +93,10 @@ nav.turun{
     transition: .5s;
     top: 67px;
 }
+.navstore nav.turun ul li a{
+    color: black !important;
+    font-size: 12pt !important;
+}
 nav.turun .logo a{
     
     font-family: 'Exo 2', sans-serif;

@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { connect } from "react-redux";
 import { getProductByID } from "../redux/action";
 import { API_URL_1 } from "../helpers/apiurl";
+import { Redirect } from "react-router-dom";
 import { TabContent, TabPane, Nav, NavItem, NavLink, Card, Button, CardTitle, CardText, Row, Col } from 'reactstrap';
 import TextField from '@material-ui/core/TextField';
 // import {Button} from '@material-ui/core';
@@ -18,6 +19,7 @@ class detailProduct extends Component {
         activeTab : 0,
         total : 1
     }
+
 
     componentDidMount() {
         this.renderDetailProduct()
@@ -84,6 +86,26 @@ class detailProduct extends Component {
         }
     }
 
+    onPressBuy=()=>{
+        var {id,nama_product,harga}=this.props.productReducer.productDetail
+        harga = harga*(this.state.total)
+        Axios.post(API_URL_1+`/product/addParentCart`,{
+            product_id:id,
+            nama_product,
+            total:this.state.total,
+            harga,
+            id_ortu:this.props.user.id
+        })
+        .then(res=>{
+            console.log('berhasil tambah cart');
+            window.location('/cart')
+        })
+        .catch(err=>{
+            console.log('gagal tambah cart ortu');
+        })
+    }
+    
+
     onPressAddCart=()=>{
         var {id,nama_product,harga}=this.props.productReducer.productDetail
         harga = harga*(this.state.total)
@@ -109,7 +131,10 @@ class detailProduct extends Component {
         var {id,nama_product,deskripsi,stock,harga, images}=this.props.productReducer.productDetail
         console.log(this.state.activeTab);
 
-        
+        if(!localStorage.getItem('ptoken')){
+            return <Redirect to='*'/>
+        }
+
         return (
             <div style={{ backgroundImage: 'linear-gradient(to bottom, #dfe9f3 0%, white 100%)' }}>
                 
@@ -122,7 +147,7 @@ class detailProduct extends Component {
                                 </div>
                                 <div className='mt-4 '>
                                     <a onClick={this.onPressAddCart} className='border p-3 ml-3' style={{color:'orange',fontWeight:700, borderRadius:'10px'}}><AddShoppingCartIcon/></a>
-                                    <a className='border p-3 ml-4' style={{color:'green',fontWeight:700, borderRadius:'10px'}}>Beli Sekarang</a>
+                                    <a onClick={this.onPressBuy} className='border p-3 ml-4' style={{color:'green',fontWeight:700, borderRadius:'10px'}}>Beli Sekarang</a>
                                 </div>
                             </div>
                             <div className='col border-left ml-2'>

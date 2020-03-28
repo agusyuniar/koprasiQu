@@ -1,6 +1,6 @@
 import axios from "axios";
 import { API_URL_1 } from "../../helpers/apiurl";
-import { GET_PRODUCT_SUCCESS, GET_PRODUCT_DETAIL_SUCCESS, GET_CART_SUCCESS, GET_TRANSACTION_SUCCESS } from './types';
+import { GET_PRODUCT_SUCCESS, GET_PRODUCT_DETAIL_SUCCESS, GET_CART_SUCCESS, GET_TRANSACTION_SUCCESS, INPUT_SEARCH, GET_PRODUCT_SEARCH_SUCCESS } from './types';
 
 export const getProduct = () => {
     return (dispatch) => {
@@ -9,6 +9,30 @@ export const getProduct = () => {
             console.log(res.data);
             dispatch({
                 type : GET_PRODUCT_SUCCESS,
+                payload: res.data
+            })
+        })
+        .catch(err=>{
+            console.log(err);
+        })
+    }
+}
+
+export const inputSearch = (search) => {
+    return {
+        type : INPUT_SEARCH,
+        payload  : search
+    }
+}
+export const searchProductbyName = (search) => {
+    console.log(search);
+    
+    return (dispatch) => {
+        axios.get(API_URL_1+`/product/searchProductbyName/${search}`)
+        .then(res=>{
+            console.log(res.data);
+            dispatch({
+                type : GET_PRODUCT_SEARCH_SUCCESS,
                 payload: res.data
             })
         })

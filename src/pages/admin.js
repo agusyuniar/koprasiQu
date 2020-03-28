@@ -7,6 +7,7 @@ import { TabContent, TabPane, Nav, NavItem, NavLink, Card, Button, CardTitle, Ca
 import DataOrtu from '../components/adminComponent/manageOrtu';
 import DataProduct from '../components/adminComponent/manageProduct';
 import DataMurid from '../components/adminComponent/manageMurid';
+import DataCategory from '../components/adminComponent/CategoryPage';
 
 class LoginPage extends Component {
     state = {
@@ -15,9 +16,9 @@ class LoginPage extends Component {
 
     render() {
 
-        if(this.props.user.username!== 'admin'){
-            return <Redirect to='/'/>
-        }
+        // if(this.props.user.username!== 'admin'){
+        //     return <Redirect to='*'/>
+        // }
         console.log(this.state);
 
         return (
@@ -54,26 +55,41 @@ class LoginPage extends Component {
                                                 Manage Produk
                                             </NavLink>
                                         </NavItem>
+                                        <NavItem>
+                                            <NavLink
+                                                className={this.state.activeTab == 4 ? 'active btn-success' : null}
+                                                onClick={() => this.setState({ activeTab: '4' })}
+                                            >
+                                                Manage Category
+                                            </NavLink>
+                                        </NavItem>
                                     </Nav>
                                     <TabContent activeTab={this.state.activeTab}>
                                         <TabPane tabId="1">
                                             <Row>
                                                 <Col>
-                                                    <DataOrtu />
+                                                    {this.state.activeTab==="1" ? <DataOrtu /> : null}
                                                 </Col>
                                             </Row>
                                         </TabPane>
                                         <TabPane tabId="2">
                                             <Row>
                                                 <Col>
-                                                    <DataMurid />
+                                                {this.state.activeTab==="2" ? <DataMurid /> : null }
                                                 </Col>
                                             </Row>
                                         </TabPane>
                                         <TabPane tabId="3">
                                             <Row>
                                                 <Col>
-                                                    <DataProduct />
+                                                {this.state.activeTab==="3" ? <DataProduct /> : null }
+                                                </Col>
+                                            </Row>
+                                        </TabPane>
+                                        <TabPane tabId="4">
+                                            <Row>
+                                                <Col>
+                                                {this.state.activeTab==="4" ? <DataCategory /> : null }
                                                 </Col>
                                             </Row>
                                         </TabPane>

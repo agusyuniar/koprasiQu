@@ -16,7 +16,7 @@ class BelanjaHome extends Component {
     // }
 
     render() {
-        console.log(localStorage.getItem('ptoken'));
+        // console.log(localStorage.getItem('ptoken'));
         if (!localStorage.getItem('ptoken')) {
 
             return <Redirect to='/login' >{alert('Untuk berbelanja silakan login terlebih dahulu')}</Redirect>

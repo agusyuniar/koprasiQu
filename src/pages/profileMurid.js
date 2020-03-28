@@ -66,7 +66,7 @@ class ProfilePage extends Component {
 
         formData.append('data', JSON.stringify(data))
 
-        axios.put(API_URL_1 + `/profile/editPP/` + this.props.user.id, formData, headers)
+        axios.put(API_URL_1 + `/profile/editStudentPP/` + this.props.user.id, formData, headers)
             .then((res) => {
                 console.log(res);
                 console.log(this.props.user.profil_img);
@@ -90,7 +90,7 @@ class ProfilePage extends Component {
         console.log(this.props.user.id);
         // if (this.props.user.id) {
         return (
-            axios.get(API_URL_1 + `/user/parent/${this.props.user.id}`)
+            axios.get(API_URL_1 + `/user/student/${this.props.user.id}`)
                 .then((res) => {
                     console.log(res.data[0].profil_img);
                     this.setState({ PP: res.data[0].profil_img })
@@ -214,7 +214,7 @@ class ProfilePage extends Component {
                     {/* title */}
                     <div className='row'>
                         <div className='col-6 float-left'>
-                            <h4 ><AccountCircleTwoToneIcon alignmentBaseline='auto' /> {this.props.user.username} 
+                            <h4 ><AccountCircleTwoToneIcon alignmentBaseline='auto' /> {this.props.user.firstname}  
                             </h4>
                         </div>
                         <div className='col-6'>
@@ -290,23 +290,23 @@ class ProfilePage extends Component {
                                 <table>
                                     <tbody>
                                         <tr >
-                                            <td style={{ paddingRight: '30px' }}>Username</td>
-                                            <td>{this.props.user.username} &nbsp; ( id : {this.props.user.id} )</td>
+                                            <td style={{ paddingRight: '30px' }}>Nomor Induk Murid</td>
+                                            <td>{this.props.user.nim} &nbsp; ( id : {this.props.user.id} )</td>
                                         </tr>
                                         <tr >
-                                            <td style={{ paddingRight: '30px' }}>Nama</td>
+                                            <td style={{ paddingRight: '30px' }}>Nama Lengkap</td>
                                             <td>{this.props.user.firstname} &nbsp;{this.props.user.lastname}</td>
                                         </tr>
                                         <tr >
                                             <td style={{ paddingRight: '30px' }}>Email</td>
-                                            <td>{this.props.user.email}
-                                            {this.props.user.verified==1 ?
+                                            <td>{this.props.user.email_ortu}
+                                            {/* {this.props.user.verified==1 ?
                                             <span style={{fontSize: '10pt', color: 'green', fontStyle:'italic' }}>
                                                 <CheckCircleOutlineRoundedIcon className='ml-3' fontSize='small'/> email terverifikasi</span>
                                                 :
                                             <span style={{fontSize: '10pt', color: 'orange', fontStyle:'italic' }}>
                                                 <ErrorOutlineOutlinedIcon className='ml-3' fontSize='small'/> email belum di verifikasi</span>
-                                            }
+                                            } */}
                                             </td>
                                         </tr>
                                         <tr >
@@ -330,14 +330,14 @@ class ProfilePage extends Component {
 
                                 {/* data murid */}
                                 <div className='h5 mt-5 p-2 mb-5 border rounded'>
-                                    <div className='pb-2'>
+                                    {/* <div className='pb-2'>
                                         Data Anak
                                             <Tooltip title='Daftarkan anak anda ke akun anda' leaveDelay='100' arrow >
                                             <a style={{ fontSize: '12pt', paddingLeft: '10px' }}>
                                                 tambah
                                                 </a>
                                         </Tooltip>
-                                    </div>
+                                    </div> */}
 
                                     <table style={{ width: '100%' }}>
                                         {this.props.user.anak

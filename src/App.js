@@ -16,6 +16,7 @@ import AdminPage from './pages/admin';
 import cart from './pages/cart';
 import checkOut from './pages/checkOut';
 import profileMurid from './pages/profileMurid';
+import NotFound from './pages/404';
 
 /*________________only_comp________________*/
 import Loginpage from './pages/login'
@@ -32,49 +33,71 @@ class App extends Component {
   componentDidMount() {
     var token = localStorage.getItem('ptoken')
     console.log(token)
-    this.props.KeepLogin(token)   
+    this.props.KeepLogin(token)
   }
-  
-  render(){
-    
+
+  render() {
+
     this.props.getCartbyParent(this.props.user.id)
-    return(
+
+    // if (this.props.user.username === 'admin') {
+    //   return (
+    //     <div>
+    //       <Navbar />
+    //       <Switch>
+    //         <Route path='/admin' component={AdminPage} />
+    //         <Route path='/kopshop' component={BelanjaHome} />
+    //         <Route path='/details' component={detailProduct} />
+
+    //         <Route path='/mycart' component={cart} />
+    //         <Route path='/checkout' component={checkOut} />
+    //       </Switch>
+    //       <Footer />
+    //     </div>
+    //   )
+    // }
+
+    return (
       <div>
-        <Navbar/>
+        <Navbar />
         <Switch>
-          <Route path='/' component={Homepage} exact/>
-          <Route path='/login' component={Loginpage} />      
-          <Route path='/parent' component={Ortu} />      
-          <Route path='/student' component={Murid} />      
-          <Route path='/profileMurid' component={profileMurid} />      
-          <Route path='/profile' component={Profile} />      
-          <Route path='/detailMurid' component={detailMurid} />      
-          <Route path='/register' component={Register} />      
-          <Route path='/registerSuccess' component={RegSuccess}/>      
-          <Route path='/verify' component={verify}/>      
-          <Route path='/kopshop' component={BelanjaHome}/>      
-          <Route path='/details' component={detailProduct}/>      
-          <Route path='/admin' component={AdminPage}/>      
-          <Route path='/mycart' component={cart}/>      
-          <Route path='/checkout' component={checkOut}/>      
-          
+
+          <Route path='/' component={Homepage} exact />
+          <Route path='/login' component={Loginpage} />
+          <Route path='/parent' component={Ortu} />
+          <Route path='/student' component={Murid} />
+          <Route path='/profileMurid' component={profileMurid} />
+          <Route path='/profile' component={Profile} />
+          <Route path='/detailMurid' component={detailMurid} />
+          <Route path='/register' component={Register} />
+          <Route path='/registerSuccess' component={RegSuccess} />
+          <Route path='/verify' component={verify} />
+          <Route path='/kopshop' component={BelanjaHome} />
+          <Route path='/details' component={detailProduct} />
+          <Route path='/admin' component={AdminPage} />
+            <Route path='/kopshop' component={BelanjaHome} />
+            <Route path='/details' component={detailProduct} />
+          <Route path='/mycart' component={cart} />
+          <Route path='/checkout' component={checkOut} />
+          <Route path='*' component={NotFound} />
+
           {/* <Route path='/detail' component={MovieDetail} />
           <Route path='/signup' component={Register} />      
           <Route path='/admin' component={Admin} />      
           <Route path='/user' component={User} />      
           <Route path='/reserve' component={Reserve} />      
           <Route path='/checkout' component={CheckOut} />      
-          <Route path='/trdetail' component={History} />      
         <Route path='*' component={TidakKetemu} />       */}
-        <Route path='/tes' component={Cobacoba} />      
+          <Route path='/trdetail' component={History} />
+          <Route path='/tes' component={Cobacoba} />
         </Switch>
-        <Footer/>
+        <Footer />
         {/* <Futer/> */}
       </div>
     )
   }
 }
-const sambungin=({user})=>{
-  return {user}
+const sambungin = ({ user }) => {
+  return { user }
 }
-export default connect (sambungin, {KeepLogin,getCartbyParent}) (App);
+export default connect(sambungin, { KeepLogin, getCartbyParent })(App);

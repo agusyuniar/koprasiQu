@@ -129,7 +129,7 @@ class Navbartop extends Component {
                                         <NavbarText className='L h6 mt-2 ml-1'>Halo, &nbsp;</NavbarText>
                                         <Link to='/profile' className='L mr-2'>
                                             <span className='h6'>
-                                                {this.props.user.firstname} ({this.props.user.username})
+                                                {this.props.user.firstname} { this.props.user.username ? (this.props.user.username) : null}
                                     </span>
                                         </Link>
                                         <Tooltip title='Sign Out' arrow={false} leaveDelay='100'>
